@@ -6,9 +6,9 @@
     "max-len": ["error", { "code": 120 }],
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/explicit-function-return-type": ["error"],
-
     "no-console": "warn",
-    "indent": ["warn", 2],
+    // "indent": ["warn", 2],
+    "indent": "off",
     "semi": ["warn", "always"],
     "comma-dangle": ["warn", "always-multiline"],
     "import/order": [
@@ -17,6 +17,6 @@
         "groups": ["builtin", "external", "internal", ["parent", "sibling"], "object", "type"],
         "newlines-between": "always-and-inside-groups"
       }
-    ],
+    ]
   }
 }
