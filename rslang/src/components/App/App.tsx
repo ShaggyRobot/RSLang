@@ -7,7 +7,7 @@ import './App.scss';
 function App(): JSX.Element {
   const authorized = useSelector((state: RootState) => state.authorized);
 
-  return <div className='App'>App {authorized.toString()}</div>;
+  return <div className="App">App {authorized.toString()}</div>;
 }
 
 export default App;
