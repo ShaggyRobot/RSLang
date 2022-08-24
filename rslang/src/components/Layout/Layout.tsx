@@ -7,8 +7,8 @@ import PersistentDrawerRight from '../Menu/Menu';
 function Layout(): JSX.Element {
   return (
     <>
-      <Outlet />
       <PersistentDrawerRight />
+      <Outlet />
       <Footer />
     </>
   );
