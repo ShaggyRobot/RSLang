@@ -17,27 +17,27 @@ export default function Links(): JSX.Element {
   return (
     <div className={classes.root}>
       <Link
-        href="https://github.com/ShaggyRobot"
+        href='https://github.com/ShaggyRobot'
         onClick={preventDefault}
-        underline="none"
-        color="white"
+        underline='none'
+        color='white'
       >
         ShaggyRobot
       </Link>
       <Link
-        href="https://github.com/AnatoliyIliev"
+        href='https://github.com/AnatoliyIliev'
         onClick={preventDefault}
-        underline="none"
-        color="white"
+        underline='none'
+        color='white'
       >
         AnatoliyIliev
       </Link>
       <Link
-        href="https://github.com/shishel-zaitcevich"
+        href='https://github.com/shishel-zaitcevich'
         onClick={preventDefault}
-        variant="body1"
-        underline="none"
-        color="white"
+        variant='body1'
+        underline='none'
+        color='white'
       >
         Shishel-Zaitcevich
       </Link>

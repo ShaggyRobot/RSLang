@@ -85,27 +85,27 @@ export default function PersistentDrawerRight(): JSX.Element {
     <div className={classes.root}>
       <CssBaseline />
       <AppBar
-        position="fixed"
+        position='fixed'
         className={clsx(classes.appBar, {
           [classes.appBarShift]: open,
         })}
       >
         <Toolbar>
           <Button
-            color="primary"
-            aria-controls="simple-menu"
-            aria-haspopup="true"
+            color='primary'
+            aria-controls='simple-menu'
+            aria-haspopup='true'
             // onClick={handleClick}
           >
             LogIn
           </Button>
-          <Typography variant="h6" noWrap className={classes.title}>
+          <Typography variant='h6' noWrap className={classes.title}>
             RS Lang
           </Typography>
           <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="end"
+            color='inherit'
+            aria-label='open drawer'
+            edge='end'
             onClick={handleDrawerOpen}
             className={clsx(open && classes.hide)}
           >
@@ -122,8 +122,8 @@ export default function PersistentDrawerRight(): JSX.Element {
       </main>
       <Drawer
         className={classes.drawer}
-        variant="persistent"
-        anchor="right"
+        variant='persistent'
+        anchor='right'
         open={open}
         classes={{
           paper: classes.drawerPaper,

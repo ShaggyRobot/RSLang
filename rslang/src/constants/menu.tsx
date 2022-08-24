@@ -6,10 +6,10 @@ import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 import SpatialAudioIcon from '@mui/icons-material/SpatialAudio';
 
 export const navMenu = [
-  { name: 'Home', path: '/', icon: <HomeIcon color="primary" /> },
-  { name: 'About', path: '/about', icon: <InfoIcon color="primary" /> },
-  { name: 'Textbook', path: '/textbook', icon: <AutoStoriesIcon color="primary" /> },
-  { name: 'Statistics', path: '/statistics', icon: <BarChartIcon color="primary" /> },
-  { name: 'Sprint Game', path: '/sprint', icon: <SportsEsportsIcon color="primary" /> },
-  { name: 'Audiocall', path: '/audiocall', icon: <SpatialAudioIcon color="primary" /> },
+  { name: 'Home', path: '/', icon: <HomeIcon color='primary' /> },
+  { name: 'About', path: '/about', icon: <InfoIcon color='primary' /> },
+  { name: 'Textbook', path: '/textbook', icon: <AutoStoriesIcon color='primary' /> },
+  { name: 'Statistics', path: '/statistics', icon: <BarChartIcon color='primary' /> },
+  { name: 'Sprint Game', path: '/sprint', icon: <SportsEsportsIcon color='primary' /> },
+  { name: 'Audiocall', path: '/audiocall', icon: <SpatialAudioIcon color='primary' /> },
 ];

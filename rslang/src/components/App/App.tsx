@@ -18,18 +18,18 @@ function App(): JSX.Element {
   const authorized = useSelector((state: RootState) => state.authorized);
 
   return (
-    <div className="App">
+    <div className='App'>
       <Routes>
-        <Route path="/" element={<Layout />}>
+        <Route path='/' element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="about" element={<AboutPage />} />
-          <Route path="textbook" element={<TextbookPage />} />
-          <Route path="statistics" element={<StatisticsPage />} />
+          <Route path='about' element={<AboutPage />} />
+          <Route path='textbook' element={<TextbookPage />} />
+          <Route path='statistics' element={<StatisticsPage />} />
 
-          <Route path="sprint" element={<SprintPage />} />
-          <Route path="audiocall" element={<AudioCallPage />} />
+          <Route path='sprint' element={<SprintPage />} />
+          <Route path='audiocall' element={<AudioCallPage />} />
 
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path='*' element={<NotFoundPage />} />
         </Route>
       </Routes>
     </div>
