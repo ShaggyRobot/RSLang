@@ -1,7 +1,7 @@
-import React from 'react';
+// import { useState } from 'react';
 import { NavLink, Outlet } from 'react-router-dom';
 
-import AuthNav from './AuthNav';
+import AuthNav from '../AuthNav';
 
 function Layout(): JSX.Element {
   return (
@@ -23,4 +23,4 @@ function Layout(): JSX.Element {
   );
 }
 
-export { Layout };
+export default Layout;

@@ -1,6 +1,6 @@
 import * as React from 'react';
-// import { useState } from 'react';
-// import { useDispatch } from 'react-redux';
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,36 +11,38 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
-// import { authOperations } from '../components/auth';
+import { authOperations } from '../components/auth/slices';
 
 const theme = createTheme();
 
 function SignUp(): JSX.Element {
-  // const dispatch = useDispatch();
-  // const [name, setName] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
-  // const handleChange = ({ target: { name, value } }) => {
-  //   switch (name) {
-  //     case 'name':
-  //       return setName(value);
-  //     case 'email':
-  //       return setEmail(value);
-  //     case 'password':
-  //       return setPassword(value);
-  //     default:
-  //       return;
-  //   }
-  // };
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
+    const target = event.target as HTMLInputElement | HTMLTextAreaElement;
 
-  // const handleSubmit = e => {
-  //   e.preventDefault();
-  //   dispatch(authOperations.register({ name, email, password }));
-  //   setName('');
-  //   setEmail('');
-  //   setPassword('');
-  // };
+    switch (target.name) {
+      case 'name':
+        return setName(target.value);
+      case 'email':
+        return setEmail(target.value);
+      case 'password':
+        return setPassword(target.value);
+      default:
+        return;
+    }
+  };
+
+  const handleSubmit = (event: React.FormEvent<HTMLInputElement>): void => {
+    event.preventDefault();
+    dispatch(authOperations.register({ name, email, password }));
+    setName('');
+    setEmail('');
+    setPassword('');
+  };
 
   return (
     <ThemeProvider theme={theme}>
@@ -57,23 +59,19 @@ function SignUp(): JSX.Element {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box
-            component="form"
-            noValidate
-            //   onSubmit={handleSubmit}
-            sx={{ mt: 3 }}
-          >
+          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="firstName"
+                  name="name"
                   required
                   fullWidth
-                  id="firstName"
+                  id="name"
                   label="Name"
                   autoFocus
-                  // value={name} onChange={handleChange}
+                  value={name}
+                  onChange={handleChange}
                 />
               </Grid>
 
@@ -85,7 +83,8 @@ function SignUp(): JSX.Element {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  // value={email} onChange={handleChange}
+                  value={email}
+                  onChange={handleChange}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -97,7 +96,8 @@ function SignUp(): JSX.Element {
                   type="password"
                   id="password"
                   autoComplete="new-password"
-                  // value={password} onChange={handleChange}
+                  value={password}
+                  onChange={handleChange}
                 />
               </Grid>
             </Grid>

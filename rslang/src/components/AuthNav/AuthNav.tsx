@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom';
 
-import styles from './LayoutStyles.module.scss';
+import styles from './AuthNav.module.scss';
 
 const AuthNav = (): JSX.Element => (
   <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
