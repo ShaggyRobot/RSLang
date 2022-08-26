@@ -14,7 +14,7 @@ import { AudioCallPage } from '../../pages/AudioCallPage';
 import { StatisticsPage } from '../../pages/StatisticsPage';
 import { SignIn } from '../../pages/SignIn';
 import { SignUp } from '../../pages/SignUp';
-import { Layout } from '../Layout/Layout';
+import Layout from '../Layout';
 
 function App(): JSX.Element {
   const authorized = useSelector((state: RootState) => state.authorized);

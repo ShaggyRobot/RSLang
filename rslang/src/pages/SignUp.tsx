@@ -21,8 +21,9 @@ function SignUp(): JSX.Element {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    // const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+    const target = event.target as HTMLInputElement;
 
     switch (target.name) {
       case 'name':
@@ -38,7 +39,7 @@ function SignUp(): JSX.Element {
 
   const handleSubmit = (event: React.FormEvent<HTMLInputElement>): void => {
     event.preventDefault();
-    dispatch(authOperations.register({ name, email, password }));
+    // dispatch(authOperations.logUp({ name, email, password }));
     setName('');
     setEmail('');
     setPassword('');

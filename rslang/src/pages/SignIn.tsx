@@ -32,7 +32,7 @@ function SignIn(): JSX.Element {
     }
   };
 
-  const handleSubmit = (event: React.SyntheticEvent<Element, Event>): Promise<void> => {
+  const handleSubmit = (event: React.SyntheticEvent<Element, Event>): void => {
     event.preventDefault();
     dispatch(authOperations.logIn({ email, password }));
     setEmail('');

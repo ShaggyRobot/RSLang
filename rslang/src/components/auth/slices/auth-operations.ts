@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-// import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+
+// import { SignUpCredentials, SignInCredentials, State } from '../../types';
 
 axios.defaults.baseURL = 'https://backend-rslang.herokuapp.com';
 
@@ -19,7 +19,7 @@ function getErrorMessage(error: unknown): string {
   return String(error);
 }
 
-const register = createAsyncThunk('auth/singup', async credentials => {
+const logUp = createAsyncThunk('auth/singup', async credentials => {
   try {
     const { data } = await axios.post('/users', credentials);
     token.set(data.token);
@@ -35,7 +35,6 @@ const logIn = createAsyncThunk('auth/login', async credentials => {
     token.set(data.token);
     return data;
   } catch (error) {
-    reportError({ message: getErrorMessage(error) });
     return { message: getErrorMessage(error) };
   }
 });
@@ -49,4 +48,4 @@ const logOut = createAsyncThunk('auth/logout', () => {
 });
 
 // eslint-disable-next-line import/no-anonymous-default-export
-export default { register, logIn, logOut };
+export default { logUp, logIn, logOut };
