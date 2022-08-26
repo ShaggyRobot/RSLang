@@ -3,6 +3,7 @@
   "rules": {
     "prefer-const": "error",
     "quotes": ["error", "single"],
+    "jsx-quotes": ["error", "prefer-single"],
     "max-len": ["error", { "code": 120 }],
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/explicit-function-return-type": ["error"],
@@ -17,6 +18,6 @@
         "groups": ["builtin", "external", "internal", ["parent", "sibling"], "object", "type"],
         "newlines-between": "always-and-inside-groups"
       }
-    ],
+    ]
   }
 }

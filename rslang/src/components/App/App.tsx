@@ -13,6 +13,7 @@ import { NotFoundPage } from '../../pages/NotFoundPage';
 import { AudioCallPage } from '../../pages/AudioCallPage';
 import { StatisticsPage } from '../../pages/StatisticsPage';
 import { Layout } from '../Layout/Layout';
+import { WordsPage } from '../../pages/WordsPage';
 
 function App(): JSX.Element {
   const authorized = useSelector((state: RootState) => state.authorized);
@@ -24,6 +25,7 @@ function App(): JSX.Element {
           <Route index element={<HomePage />} />
           <Route path='about' element={<AboutPage />} />
           <Route path='textbook' element={<TextbookPage />} />
+          <Route path='textbook/words/group=:group&page=:page' element={<WordsPage />} />
           <Route path='statistics' element={<StatisticsPage />} />
 
           <Route path='sprint' element={<SprintPage />} />
