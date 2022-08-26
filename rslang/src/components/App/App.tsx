@@ -1,8 +1,8 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+// import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
-import { RootState } from '../../RTK/store';
+// import { RootState } from '../../RTK/store';
 import './App.scss';
 
 import { HomePage } from '../../pages/HomePage';
@@ -17,7 +17,7 @@ import { SignUp } from '../../pages/SignUp';
 import Layout from '../Layout';
 
 function App(): JSX.Element {
-  const authorized = useSelector((state: RootState) => state.authorized);
+  // const authorized = useSelector((state: RootState) => state.authorized);
 
   return (
     <div className="App">

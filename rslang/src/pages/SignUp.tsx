@@ -1,6 +1,6 @@
-import * as React from 'react';
+// import React, { useEffect } from 'react';
+import React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -11,18 +11,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { useAppDispatch } from '../components/Hooks/hook';
 import { authOperations } from '../components/auth/slices';
 
 const theme = createTheme();
 
 function SignUp(): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
-    // const target = event.target as HTMLInputElement | HTMLTextAreaElement;
     const target = event.target as HTMLInputElement;
 
     switch (target.name) {
@@ -37,13 +37,17 @@ function SignUp(): JSX.Element {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent<HTMLInputElement>): void => {
+  const handleSubmit = (event: React.SyntheticEvent<Element, Event>): void => {
     event.preventDefault();
-    // dispatch(authOperations.logUp({ name, email, password }));
+    dispatch(authOperations.logUp({ name, email, password }));
     setName('');
     setEmail('');
     setPassword('');
   };
+
+  // useEffect(() => {
+  //   dispatch(authOperations.logUp({ name, email, password }));
+  // }, [dispatch, email, name, password]);
 
   return (
     <ThemeProvider theme={theme}>

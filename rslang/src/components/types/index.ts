@@ -14,35 +14,31 @@ export interface StateOptions {
   userId: null | string;
   name: null | string;
   refreshToken: null | string;
-  email: string;
+  email: null | string;
 }
 
 export interface ActionOptions {
   payload: StateOptions;
 }
 
-export interface AuthSlise {
+export type SignUpCredentials = {
   name: string;
-  initialState: State;
-  extraReducers: {};
+  email: string;
+  password: string;
+};
+
+export interface SignUpAction {
+  payload: {
+    name: string;
+    email: string;
+    userId: string;
+  };
 }
 
-// export type SignUpCredentials = {
-//   name: string;
-//   email: string;
-//   password: string;
-// };
-
-// export type SignInCredentials = {
-//   email: string;
-//   password: string;
-// };
-
-// export interface DataUser {
-//   id: string;
-//   name: string;
-//   email: string;
-// }
+export type SignInCredentials = {
+  email: string;
+  password: string;
+};
 
 // export interface DataWords {
 //   id: string;

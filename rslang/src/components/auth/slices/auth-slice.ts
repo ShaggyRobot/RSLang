@@ -1,8 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import authOperations from './auth-operations';
+import { StateOptions } from '../../types';
 
-const initialState = {
+const initialState: StateOptions = {
   token: null,
   message: null,
   userId: null,
@@ -18,7 +19,6 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(authOperations.logUp.fulfilled, (state, action) => {
-        state.userId = action.payload.userId;
         state.name = action.payload.name;
         state.email = action.payload.email;
       })

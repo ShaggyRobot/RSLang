@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
 
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -10,17 +9,18 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { useAppDispatch } from '../components/Hooks/hook';
 import { authOperations } from '../components/auth/slices';
 
 const theme = createTheme();
 
 function SignIn(): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleChange = (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
-    const target = event.target as HTMLInputElement | HTMLTextAreaElement;
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+    const target = event.target as HTMLInputElement;
 
     switch (target.name) {
       case 'email':
