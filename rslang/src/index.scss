@@ -22,3 +22,14 @@ a {
   cursor: default;
   text-decoration: underline;
 }
+
+a{
+  text-decoration: none;
+  color: black;
+}
+
+.active {
+  color: forestgreen;
+  cursor: default;
+  text-decoration: underline;
+}
