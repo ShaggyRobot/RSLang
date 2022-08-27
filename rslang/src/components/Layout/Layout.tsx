@@ -1,9 +1,15 @@
 // import { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { NavLink, Outlet } from 'react-router-dom';
 
+import { authSelectors } from '../auth/slices';
+
 import AuthNav from '../AuthNav';
+import UserMenu from '../UserMenu';
 
 function Layout(): JSX.Element {
+  const isLoggedIn = useSelector(authSelectors.getIsAuthrnticated);
+
   return (
     <>
       <header style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
@@ -13,7 +19,7 @@ function Layout(): JSX.Element {
         <NavLink to="/statistics">Statistics</NavLink>
         <NavLink to="/sprint">Sprint Game</NavLink>
         <NavLink to="/audiocall">Audiocall Game</NavLink>
-        <AuthNav />
+        {isLoggedIn ? <UserMenu /> : <AuthNav />}
       </header>
 
       <Outlet />

@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { SignUpCredentials, SignInCredentials } from '../../types';
+import { SignUpCredentials, SignInCredentials, StateOptions } from '../../types';
 // import { RootState } from '../store';
 
 axios.defaults.baseURL = 'https://backend-rslang.herokuapp.com';
@@ -20,26 +20,32 @@ function getErrorMessage(error: unknown): string {
   return String(error);
 }
 
-// const logUp = createAsyncThunk<SignUpCredentials, SignUpCredentials, { rejectValue: string }>(
-const logUp = createAsyncThunk('auth/logUp', async (credentials: SignUpCredentials) => {
-  try {
-    const { data } = await axios.post('/users', credentials);
-    token.set(data.token);
-    return data;
-  } catch (error) {
-    return { message: getErrorMessage(error) };
-  }
-});
+const logUp = createAsyncThunk<SignUpCredentials, SignUpCredentials, { rejectValue: string }>(
+  'auth/logUp',
+  async (credentials: SignUpCredentials) => {
+    // const logUp = createAsyncThunk('auth/logUp', async (credentials: SignUpCredentials) => {
+    try {
+      const { data } = await axios.post('/users', credentials);
+      token.set(data.token);
+      return data;
+    } catch (error) {
+      return { message: getErrorMessage(error) };
+    }
+  },
+);
 
-const logIn = createAsyncThunk('auth/logIn', async (credentials: SignInCredentials) => {
-  try {
-    const { data } = await axios.post('/signin', credentials);
-    token.set(data.token);
-    return data;
-  } catch (error) {
-    return { message: getErrorMessage(error) };
-  }
-});
+const logIn = createAsyncThunk<StateOptions, SignInCredentials, { rejectValue: string }>(
+  'auth/logIn',
+  async credentials => {
+    try {
+      const { data } = await axios.post('/signin', credentials);
+      token.set(data.token);
+      return data;
+    } catch (error) {
+      return { message: getErrorMessage(error) };
+    }
+  },
+);
 
 const logOut = createAsyncThunk('auth/logOut', async () => {
   try {
