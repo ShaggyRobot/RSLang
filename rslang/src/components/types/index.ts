@@ -1,3 +1,11 @@
+export interface IError {
+  message: string;
+  code: string;
+  response: {
+    status: number;
+  };
+}
+
 export interface State {
   auth: {
     token: null | string;

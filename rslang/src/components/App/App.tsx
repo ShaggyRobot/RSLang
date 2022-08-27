@@ -5,6 +5,8 @@ import { Route, Routes } from 'react-router-dom';
 // import { RootState } from '../../RTK/store';
 import './App.scss';
 
+import { ToastContainer } from 'react-toastify';
+
 import { HomePage } from '../../pages/HomePage';
 import { AboutPage } from '../../pages/AboutPage';
 import { SprintPage } from '../../pages/SprintPage';
@@ -38,6 +40,7 @@ function App(): JSX.Element {
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
+      <ToastContainer />
     </div>
   );
 }
