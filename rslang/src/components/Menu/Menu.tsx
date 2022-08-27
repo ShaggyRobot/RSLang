@@ -23,6 +23,8 @@ import { NavLink } from 'react-router-dom';
 
 import { navMenu } from '../../constants/menu';
 
+import './style.scss';
+
 const drawerWidth = 240;
 
 const useStyles: Function = createUseStyles((theme: Theme) => ({
@@ -30,11 +32,11 @@ const useStyles: Function = createUseStyles((theme: Theme) => ({
     display: 'flex',
   },
   appBar: {
-    transition: 'all 1s linear',
+    transition: 'all 225ms linear',
   },
   appBarShift: {
     width: `calc(100% - ${drawerWidth}px)`,
-    transition: 'all 1s linear',
+    transition: 'all 225ms linear',
     marginRight: drawerWidth,
   },
   title: {
@@ -59,11 +61,11 @@ const useStyles: Function = createUseStyles((theme: Theme) => ({
   content: {
     flexGrow: 1,
     padding: 24,
-    transition: 'all 1s linear',
+    transition: 'all 225ms linear',
     marginRight: -drawerWidth,
   },
   contentShift: {
-    transition: 'all 1s linear',
+    transition: 'all 225ms linear',
     marginRight: 0,
   },
 }));

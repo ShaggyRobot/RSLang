@@ -2,7 +2,7 @@ import React from 'react';
 
 function HomePage(): JSX.Element {
   return (
-    <div>
+    <div className='page'>
       <h1>Home Page</h1>
       <p>This is home page</p>
     </div>

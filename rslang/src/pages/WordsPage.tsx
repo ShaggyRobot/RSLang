@@ -60,7 +60,7 @@ function WordsPage(): JSX.Element {
   const wordList = words.map((word) => <WordCard word={word} play={play} key={word.id} />);
 
   return (
-    <div>
+    <div className='page'>
       <h1>{`Group ${group} Page ${page}`}</h1>
       <Container>
         <Pagination
