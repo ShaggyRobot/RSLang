@@ -10,7 +10,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useAppDispatch } from '../components/Hooks/hook';
-import { authOperations } from '../components/auth/slices';
+import { authOperations } from '../RTK/slices/auth';
 
 const theme = createTheme();
 

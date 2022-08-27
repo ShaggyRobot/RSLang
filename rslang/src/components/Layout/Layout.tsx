@@ -1,8 +1,7 @@
-// import { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, Outlet } from 'react-router-dom';
 
-import { authSelectors } from '../auth/slices';
+import { authSelectors } from '../../RTK/slices/auth';
 
 import AuthNav from '../AuthNav';
 import UserMenu from '../UserMenu';

@@ -1,4 +1,3 @@
-// import React, { useEffect } from 'react';
 import React from 'react';
 import { useState } from 'react';
 
@@ -12,7 +11,7 @@ import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { useAppDispatch } from '../components/Hooks/hook';
-import { authOperations } from '../components/auth/slices';
+import { authOperations } from '../RTK/slices/auth';
 
 const theme = createTheme();
 
@@ -44,10 +43,6 @@ function SignUp(): JSX.Element {
     setEmail('');
     setPassword('');
   };
-
-  // useEffect(() => {
-  //   dispatch(authOperations.logUp({ name, email, password }));
-  // }, [dispatch, email, name, password]);
 
   return (
     <ThemeProvider theme={theme}>

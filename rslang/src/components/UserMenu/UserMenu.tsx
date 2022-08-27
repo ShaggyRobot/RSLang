@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 
 import { useAppDispatch } from '../Hooks/hook';
-import { authSelectors, authOperations } from '../auth/slices';
+import { authSelectors, authOperations } from '../../RTK/slices/auth';
 
 import styles from './UserMenu.module.scss';
 

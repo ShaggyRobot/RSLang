@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 import authOperations from './auth-operations';
-import { StateOptions } from '../../types';
+import { StateOptions } from '../../../components/types';
 
 const initialState: StateOptions = {
   token: null,

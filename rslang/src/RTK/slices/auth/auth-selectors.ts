@@ -1,4 +1,4 @@
-import { State } from '../../types';
+import { State } from '../../../components/types';
 
 const getIsAuthrnticated = (state: State): null | string => state.auth?.token;
 
