@@ -1,5 +1,12 @@
 .App {
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  background-image: url('../../../public/images/1618546481_15-funart_pro-p-oboi-fon-peizazh-art-15.jpg');
+  background-size: cover;
+  height: 100vh;
+  background-attachment: fixed;
+  overflow-y: scroll;
 }
 
 .App-logo {
