@@ -9,8 +9,12 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 
+import { useForm } from 'react-hook-form';
+
 import { useAppDispatch } from '../components/Hooks/hook';
 import { authOperations } from '../RTK/slices/auth';
+
+import { SignInCredentials } from '../components/types';
 
 const theme = createTheme();
 
@@ -32,12 +36,17 @@ function SignIn(): JSX.Element {
     }
   };
 
-  const handleSubmit = (event: React.SyntheticEvent<Element, Event>): void => {
-    event.preventDefault();
+  const onSubmit = (): void => {
     dispatch(authOperations.logIn({ email, password }));
     setEmail('');
     setPassword('');
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignInCredentials>();
 
   return (
     <ThemeProvider theme={theme}>
@@ -54,29 +63,51 @@ function SignIn(): JSX.Element {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+          <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
             <TextField
               margin="normal"
               required
               fullWidth
               id="email"
               label="Email Address"
-              name="email"
+              // name="email"
               autoComplete="email"
               autoFocus
               value={email}
+              {...register('email', {
+                required: 'Required field',
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: 'Please enter a valid email, for example name@example.com',
+                },
+              })}
+              error={!!errors?.email?.message}
+              helperText={errors?.email ? errors?.email?.message : null}
               onChange={handleChange}
             />
             <TextField
               margin="normal"
               required
               fullWidth
-              name="password"
+              // name="password"
               label="Password"
               type="password"
               id="password"
               autoComplete="current-password"
               value={password}
+              {...register('password', {
+                required: 'Required field',
+                pattern: {
+                  value: /[0-9a-zA-Z!@#$%^&*]/,
+                  message: 'Invalid characters for password',
+                },
+                minLength: {
+                  value: 8,
+                  message: 'Password must be at least 8 characters',
+                },
+              })}
+              error={!!errors?.password?.message}
+              helperText={errors?.password ? errors?.password?.message : null}
               onChange={handleChange}
             />
             <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>

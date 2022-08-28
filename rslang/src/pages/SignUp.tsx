@@ -9,6 +9,9 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useForm } from 'react-hook-form';
+
+import { SignUpCredentials } from '../components/types';
 
 import { useAppDispatch } from '../components/Hooks/hook';
 import { authOperations } from '../RTK/slices/auth';
@@ -36,13 +39,18 @@ function SignUp(): JSX.Element {
     }
   };
 
-  const handleSubmit = (event: React.SyntheticEvent<Element, Event>): void => {
-    event.preventDefault();
+  const onSubmit = (): void => {
     dispatch(authOperations.logUp({ name, email, password }));
     setName('');
     setEmail('');
     setPassword('');
   };
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<SignUpCredentials>();
 
   return (
     <ThemeProvider theme={theme}>
@@ -59,31 +67,49 @@ function SignUp(): JSX.Element {
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
-          <Box component="form" noValidate onSubmit={handleSubmit} sx={{ mt: 3 }}>
+
+          <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
                   autoComplete="given-name"
-                  name="name"
                   required
                   fullWidth
                   id="name"
                   label="Name"
                   autoFocus
                   value={name}
+                  {...register('name', {
+                    required: 'Required field',
+                    minLength: {
+                      value: 1,
+                      message: 'Enter your name',
+                    },
+                  })}
+                  error={!!errors?.name?.message}
+                  helperText={errors?.name ? errors?.name?.message : null}
                   onChange={handleChange}
                 />
               </Grid>
-
               <Grid item xs={12}>
                 <TextField
+                  variant="outlined"
                   required
                   fullWidth
                   id="email"
+                  type="email"
                   label="Email Address"
-                  name="email"
                   autoComplete="email"
                   value={email}
+                  {...register('email', {
+                    required: 'Required field',
+                    pattern: {
+                      value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                      message: 'Please enter a valid email, for example name@example.com',
+                    },
+                  })}
+                  error={!!errors?.email?.message}
+                  helperText={errors?.email ? errors?.email?.message : null}
                   onChange={handleChange}
                 />
               </Grid>
@@ -91,12 +117,24 @@ function SignUp(): JSX.Element {
                 <TextField
                   required
                   fullWidth
-                  name="password"
                   label="Password"
                   type="password"
                   id="password"
                   autoComplete="new-password"
                   value={password}
+                  {...register('password', {
+                    required: 'Required field',
+                    pattern: {
+                      value: /[0-9a-zA-Z!@#$%^&*]/,
+                      message: 'Invalid characters for password',
+                    },
+                    minLength: {
+                      value: 8,
+                      message: 'Password must be at least 8 characters',
+                    },
+                  })}
+                  error={!!errors?.password?.message}
+                  helperText={errors?.password ? errors?.password?.message : null}
                   onChange={handleChange}
                 />
               </Grid>
