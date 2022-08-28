@@ -28,4 +28,4 @@ function Layout(): JSX.Element {
   );
 }
 
-export default Layout;
+export { Layout };
