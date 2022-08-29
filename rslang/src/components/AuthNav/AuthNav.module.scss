@@ -1,11 +1,6 @@
-  .link {
-    display: 'inline-block';
-    text-decoration: 'none';
-    padding: 12;
-    font-weight: 700;
-    color: '#2A363B';
-  }
-
-.activeLink {
-  color: '#E84A5F';
+.authNav {
+  display: flex;
+  gap: 1rem;
+  justify-content: center
 }
+

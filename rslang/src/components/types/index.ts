@@ -48,19 +48,9 @@ export type SignInCredentials = {
   password: string;
 };
 
-// export interface DataWords {
-//   id: string;
-//   group: number;
-//   page: number;
-//   word: string;
-//   image: string;
-//   audio: string;
-//   audioMeaning: string;
-//   audioExample: string;
-//   textMeaning: string;
-//   textExample: string;
-//   transcription: string;
-//   textExampleTranslate: string;
-//   textMeaningTranslate: string;
-//   wordTranslate: string;
-// }
+export interface ModalChildrenProps {
+  basename?: string;
+  children?: React.ReactNode;
+  window?: Window;
+  nameOption?: string;
+}

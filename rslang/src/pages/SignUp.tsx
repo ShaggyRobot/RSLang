@@ -9,6 +9,8 @@ import Box from '@mui/material/Box';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Avatar from '@mui/material/Avatar';
 import { useForm } from 'react-hook-form';
 
 import { SignUpCredentials } from '../components/types';
@@ -58,12 +60,15 @@ function SignUp(): JSX.Element {
         <CssBaseline />
         <Box
           sx={{
-            marginTop: 8,
+            // marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
           }}
         >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <LockOutlinedIcon />
+          </Avatar>
           <Typography component="h1" variant="h5">
             Sign up
           </Typography>
@@ -81,7 +86,7 @@ function SignUp(): JSX.Element {
                   value={name}
                   {...register('name', {
                     required: 'Required field',
-                    minLength: {
+                    min: {
                       value: 1,
                       message: 'Enter your name',
                     },
@@ -109,7 +114,7 @@ function SignUp(): JSX.Element {
                     },
                   })}
                   error={!!errors?.email?.message}
-                  helperText={errors?.email ? errors?.email?.message : null}
+                  helperText={errors?.email ? errors?.email.message : null}
                   onChange={handleChange}
                 />
               </Grid>
@@ -124,17 +129,17 @@ function SignUp(): JSX.Element {
                   value={password}
                   {...register('password', {
                     required: 'Required field',
+                    minLength: {
+                      value: 10,
+                      message: 'Password must be at least 10 characters',
+                    },
                     pattern: {
                       value: /[0-9a-zA-Z!@#$%^&*]/,
                       message: 'Invalid characters for password',
                     },
-                    minLength: {
-                      value: 8,
-                      message: 'Password must be at least 8 characters',
-                    },
                   })}
                   error={!!errors?.password?.message}
-                  helperText={errors?.password ? errors?.password?.message : null}
+                  helperText={errors?.password ? errors?.password.message : null}
                   onChange={handleChange}
                 />
               </Grid>
