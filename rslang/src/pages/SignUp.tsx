@@ -30,14 +30,14 @@ function SignUp(): JSX.Element {
     const target = event.target as HTMLInputElement;
 
     switch (target.name) {
-      case 'name':
-        return setName(target.value);
-      case 'email':
-        return setEmail(target.value);
-      case 'password':
-        return setPassword(target.value);
-      default:
-        return;
+    case 'name':
+      return setName(target.value);
+    case 'email':
+      return setEmail(target.value);
+    case 'password':
+      return setPassword(target.value);
+    default:
+      return;
     }
   };
 
@@ -56,7 +56,7 @@ function SignUp(): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <Box
           sx={{
@@ -69,19 +69,19 @@ function SignUp(): JSX.Element {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component='h1' variant='h5'>
             Sign up
           </Typography>
 
-          <Box component="form" noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
+          <Box component='form' noValidate onSubmit={handleSubmit(onSubmit)} sx={{ mt: 3 }}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
-                  autoComplete="given-name"
+                  autoComplete='given-name'
                   required
                   fullWidth
-                  id="name"
-                  label="Name"
+                  id='name'
+                  label='Name'
                   autoFocus
                   value={name}
                   {...register('name', {
@@ -98,13 +98,13 @@ function SignUp(): JSX.Element {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  variant="outlined"
+                  variant='outlined'
                   required
                   fullWidth
-                  id="email"
-                  type="email"
-                  label="Email Address"
-                  autoComplete="email"
+                  id='email'
+                  type='email'
+                  label='Email Address'
+                  autoComplete='email'
                   value={email}
                   {...register('email', {
                     required: 'Required field',
@@ -122,10 +122,10 @@ function SignUp(): JSX.Element {
                 <TextField
                   required
                   fullWidth
-                  label="Password"
-                  type="password"
-                  id="password"
-                  autoComplete="new-password"
+                  label='Password'
+                  type='password'
+                  id='password'
+                  autoComplete='new-password'
                   value={password}
                   {...register('password', {
                     required: 'Required field',
@@ -144,7 +144,7 @@ function SignUp(): JSX.Element {
                 />
               </Grid>
             </Grid>
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
           </Box>

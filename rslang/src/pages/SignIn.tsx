@@ -29,12 +29,12 @@ function SignIn(): JSX.Element {
     const target = event.target as HTMLInputElement;
 
     switch (target.name) {
-      case 'email':
-        return setEmail(target.value);
-      case 'password':
-        return setPassword(target.value);
-      default:
-        return;
+    case 'email':
+      return setEmail(target.value);
+    case 'password':
+      return setPassword(target.value);
+    default:
+      return;
     }
   };
 
@@ -52,7 +52,7 @@ function SignIn(): JSX.Element {
 
   return (
     <ThemeProvider theme={theme}>
-      <Container component="main" maxWidth="xs">
+      <Container component='main' maxWidth='xs'>
         <CssBaseline />
         <Box
           sx={{
@@ -65,17 +65,17 @@ function SignIn(): JSX.Element {
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
             <LockOutlinedIcon />
           </Avatar>
-          <Typography component="h1" variant="h5">
+          <Typography component='h1' variant='h5'>
             Sign in
           </Typography>
-          <Box component="form" onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
+          <Box component='form' onSubmit={handleSubmit(onSubmit)} sx={{ mt: 1 }}>
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
-              id="email"
-              label="Email Address"
-              autoComplete="email"
+              id='email'
+              label='Email Address'
+              autoComplete='email'
               autoFocus
               value={email}
               {...register('email', {
@@ -90,13 +90,13 @@ function SignIn(): JSX.Element {
               onChange={handleChange}
             />
             <TextField
-              margin="normal"
+              margin='normal'
               required
               fullWidth
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
+              label='Password'
+              type='password'
+              id='password'
+              autoComplete='current-password'
               value={password}
               {...register('password', {
                 required: 'Required field',
@@ -113,7 +113,7 @@ function SignIn(): JSX.Element {
               helperText={errors?.password ? errors?.password.message : null}
               onChange={handleChange}
             />
-            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3, mb: 2 }}>
+            <Button type='submit' fullWidth variant='contained' sx={{ mt: 3, mb: 2 }}>
               Sign In
             </Button>
           </Box>

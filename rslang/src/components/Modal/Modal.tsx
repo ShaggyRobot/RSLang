@@ -28,7 +28,7 @@ export default function OpenModal({ children, nameOption }: ModalChildrenProps):
       <Button onClick={handleOpen}>{nameOption}</Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
-          <Tooltip title="Delete">
+          <Tooltip title='Delete'>
             <>{children}</>
           </Tooltip>
         </Box>
