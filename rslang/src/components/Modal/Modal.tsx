@@ -25,7 +25,9 @@ export default function OpenModal({ children, nameOption }: ModalChildrenProps):
 
   return (
     <div>
-      <Button onClick={handleOpen}>{nameOption}</Button>
+      <Button onClick={handleOpen} variant='outlined' size='small' color='inherit'>
+        {nameOption}
+      </Button>
       <Modal open={open} onClose={handleClose}>
         <Box sx={style}>
           <Tooltip title='Delete'>
