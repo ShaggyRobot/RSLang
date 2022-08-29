@@ -16,7 +16,7 @@ function UserMenu(): JSX.Element {
   return (
     <div className={styles.logoutContainer}>
       <span className={styles.logoutName}>{name}</span>
-      <button type="button" onClick={increaseCounter}>
+      <button type='button' onClick={increaseCounter}>
         Log out
       </button>
     </div>

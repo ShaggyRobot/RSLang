@@ -7,8 +7,11 @@
     "@typescript-eslint/no-explicit-any": "error",
     "@typescript-eslint/explicit-function-return-type": ["error"],
     "no-console": "warn",
-    // "indent": ["warn", 2],
-    "indent": "off",
+    "indent": ["warn", 2], 
+    "jsx-quotes": [
+      "error",
+      "prefer-single"
+    ],
     "semi": ["warn", "always"],
     "comma-dangle": ["warn", "always-multiline"],
     "import/order": [
