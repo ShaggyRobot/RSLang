@@ -2,7 +2,7 @@ import React from 'react';
 
 function NotFoundPage(): JSX.Element {
   return (
-    <div>
+    <div className='page'>
       <h1>404</h1>
       <p>This is NotFound page</p>
     </div>

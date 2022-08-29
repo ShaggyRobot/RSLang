@@ -17,6 +17,7 @@ import { StatisticsPage } from '../../pages/StatisticsPage';
 import { SignIn } from '../../pages/SignIn';
 import { SignUp } from '../../pages/SignUp';
 import { Layout } from '../Layout/Layout';
+import { WordsPage } from '../../pages/WordsPage';
 
 function App(): JSX.Element {
   // const authorized = useSelector((state: RootState) => state.authorized);
@@ -28,6 +29,7 @@ function App(): JSX.Element {
           <Route index element={<HomePage />} />
           <Route path='about' element={<AboutPage />} />
           <Route path='textbook' element={<TextbookPage />} />
+          <Route path='textbook/words/group=:group&page=:page' element={<WordsPage />} />
           <Route path='statistics' element={<StatisticsPage />} />
 
           <Route path='sprint' element={<SprintPage />} />

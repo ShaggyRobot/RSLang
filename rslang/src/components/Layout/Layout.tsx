@@ -1,5 +1,11 @@
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, Outlet } from 'react-router-dom';
+
+
+import Footer from '../Menu/Footer';
+import PersistentDrawerRight from '../Menu/Menu';
+
 
 import { authSelectors } from '../../RTK/slices/auth';
 
@@ -20,10 +26,9 @@ function Layout(): JSX.Element {
         <NavLink to='/audiocall'>Audiocall Game</NavLink>
         {isLoggedIn ? <UserMenu /> : <AuthNav />}
       </header>
-
       <Outlet />
-
-      <footer>RSLang 2022</footer>
+      <PersistentDrawerRight />
+      <Footer />
     </>
   );
 }
