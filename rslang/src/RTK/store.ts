@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import { authReducer } from './slices/auth';
+import { wordsSlice } from './slices/words/wordsSlice';
 
 const middleware = getDefaultMiddleware({
   serializableCheck: {
@@ -28,6 +29,7 @@ const authPersistConfig = {
 const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
+    wordsSlice: wordsSlice.reducer,
   },
   middleware,
 });
