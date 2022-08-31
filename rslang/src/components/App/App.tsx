@@ -19,6 +19,22 @@ import { SignUp } from '../../pages/SignUp';
 import { Layout } from '../Layout/Layout';
 import { WordsPage } from '../../pages/WordsPage';
 
+// import data from '../../pages/db.json';
+
+// const data = {
+//   statistics: {
+//     sprint: [
+//       {
+//         date: 34534534534554,
+//         new: 6,
+//         quantity: 3,
+//         wrong: 6,
+//         correct: 12,
+//       },
+//     ],
+//   },
+// };
+
 function App(): JSX.Element {
   // const authorized = useSelector((state: RootState) => state.authorized);
 
@@ -30,7 +46,14 @@ function App(): JSX.Element {
           <Route path='about' element={<AboutPage />} />
           <Route path='textbook' element={<TextbookPage />} />
           <Route path='textbook/words/group=:group&page=:page' element={<WordsPage />} />
-          <Route path='statistics' element={<StatisticsPage />} />
+          <Route
+            path='statistics'
+            element={
+              <StatisticsPage
+              // date={data.statistics.sprint}
+              />
+            }
+          />
 
           <Route path='sprint' element={<SprintPage />} />
           <Route path='audiocall' element={<AudioCallPage />} />

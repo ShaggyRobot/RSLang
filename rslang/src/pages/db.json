@@ -1,0 +1,52 @@
+{
+    "statistics": {
+        "sprint": [
+            {
+                "date": "Wed Aug 31 2022 16:03:15 GMT+0300 (Восточная Европа, летнее время)",
+                "new": 4,
+                "quantity": 3,
+                "wrong": 6,
+                "correct": 12
+            },
+            {
+                "date": "Wed Aug 31 2022 16:13:15 GMT+0300 (Восточная Европа, летнее время)",
+                "new": 5,
+                "quantity": 5,
+                "wrong": 2,
+                "correct": 7
+            },
+            {
+                "date": "Wed Aug 31 2022 16:23:15 GMT+0300 (Восточная Европа, летнее время)",
+                "new": 2,
+                "quantity": 3,
+                "wrong": 6,
+                "correct": 19
+            },
+            {
+                "date": "Wed Aug 31 2022 16:33:15 GMT+0300 (Восточная Европа, летнее время)",
+                "new": 3,
+                "quantity": 5,
+                "wrong": 6,
+                "correct": 10
+            }
+        ],
+        "audio": [
+            {
+                "date": 34534534534554,
+                "new": 4,
+                "quantity": 6,
+                "wrong": 2,
+                "correct": 12
+            }
+        ],
+        "words": [
+            {
+                "date": 78654325678976543,
+                "learn": 23,
+                "new": 5,
+                "wrong": 6,
+                "correct": 17
+            }
+        ]
+    }
+}

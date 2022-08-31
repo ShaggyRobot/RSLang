@@ -8,7 +8,7 @@ function TextbookPage(): JSX.Element {
   const [words, setWords] = useState<IWord[]>([]);
 
   useEffect(() => {
-    getWords().then((words) => {
+    getWords().then(words => {
       setWords(words);
     });
   }, []);
