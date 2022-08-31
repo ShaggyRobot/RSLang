@@ -24,6 +24,10 @@ import { NavLink } from 'react-router-dom';
 import { navMenu } from '../../constants/menu';
 
 import './style.scss';
+import AuthNav from '../AuthNav';
+import { useSelector } from 'react-redux';
+import { authSelectors } from '../../RTK/slices/auth';
+import UserMenu from '../UserMenu';
 
 const drawerWidth = 240;
 
@@ -71,6 +75,7 @@ const useStyles: Function = createUseStyles((theme: Theme) => ({
 }));
 
 export default function PersistentDrawerRight(): JSX.Element {
+  const isLoggedIn = useSelector(authSelectors.getIsAuthrnticated);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -93,14 +98,7 @@ export default function PersistentDrawerRight(): JSX.Element {
         })}
       >
         <Toolbar>
-          <Button
-            color='primary'
-            aria-controls='simple-menu'
-            aria-haspopup='true'
-            // onClick={handleClick}
-          >
-            LogIn
-          </Button>
+          {isLoggedIn ? <UserMenu /> : <AuthNav />}
           <Typography variant='h6' noWrap className={classes.title}>
             RS Lang
           </Typography>
@@ -115,13 +113,13 @@ export default function PersistentDrawerRight(): JSX.Element {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <main
+      {/* <main
         className={clsx(classes.content, {
           [classes.contentShift]: open,
         })}
       >
         <div className={classes.drawerHeader} />
-      </main>
+      </main> */}
       <Drawer
         className={classes.drawer}
         variant='persistent'

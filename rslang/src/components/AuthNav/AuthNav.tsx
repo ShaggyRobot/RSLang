@@ -9,7 +9,7 @@ const AuthNav = (): JSX.Element => (
     <Modal nameOption={'Sign in'}>
       <SignIn />
     </Modal>
-    <Modal nameOption={'Sign Up'}>
+    <Modal nameOption={'Register'}>
       <SignUp />
     </Modal>
   </div>

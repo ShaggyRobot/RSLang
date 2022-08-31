@@ -1,8 +1,6 @@
 import React from 'react';
-// import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
-// import { RootState } from '../../RTK/store';
 import './App.scss';
 
 import { ToastContainer } from 'react-toastify';
@@ -36,7 +34,6 @@ import { WordsPage } from '../../pages/WordsPage';
 // };
 
 function App(): JSX.Element {
-  // const authorized = useSelector((state: RootState) => state.authorized);
 
   return (
     <div className='App'>
@@ -60,7 +57,6 @@ function App(): JSX.Element {
 
           <Route path='signin' element={<SignIn />} />
           <Route path='singup' element={<SignUp />} />
-          {/* <Route path="audiocall" element={<AudioCallPage />} /> */}
 
           <Route path='*' element={<NotFoundPage />} />
         </Route>
