@@ -1,10 +1,50 @@
 import React from 'react';
-import { Bar } from 'react-chartjs-2';
+import { Bar, ComposedChart, XAxis, YAxis, Legend, Tooltip, CartesianGrid } from 'recharts';
 
 import data from './db.json';
 
+interface dataOptions {
+  date: string;
+  new: number;
+  quantity: number;
+  wrong: number;
+  correct: number;
+}
+
+interface reternDataOptions {
+  date: string;
+  new: number;
+  correct: number;
+  wrong: number;
+  percent: number;
+}
+
 function StatisticsPage(): JSX.Element {
-  const dataBase = data.statistics.sprint.map(item => {
+  return (
+    <div className='page'>
+      <h1>Statistics Page</h1>
+      <p>This is Statistics page</p>
+      <ComposedChart width={730} height={250} data={handlingData(data.statistics.sprint)}>
+        <XAxis dataKey='date' />
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <CartesianGrid stroke='#f5f5f5' />
+        {/* <Area type='monotone' dataKey='new' fill='#8884d8' stroke='#8884d8' /> */}
+        {/* <Bar dataKey='total' barSize={20} fill='#0000FF' /> */}
+        <Bar dataKey='new' barSize={20} fill='#FFD700' />
+        <Bar dataKey='correct' barSize={20} fill='#008000' />
+        <Bar dataKey='wrong' barSize={20} fill='#FF0000' />
+        <Bar dataKey='percent' barSize={20} fill='#ff7300' />
+
+        {/* <Line type='monotone' dataKey='wrong' stroke='#ff7300' /> */}
+      </ComposedChart>
+    </div>
+  );
+}
+
+function handlingData(dataBase: dataOptions[]): reternDataOptions[] {
+  return dataBase.map(item => {
     const newDate = new Date(item.date);
     const num = newDate.getDate();
     const month = newDate.getMonth();
@@ -22,42 +62,6 @@ function StatisticsPage(): JSX.Element {
 
     return { date, new: item.new, correct: item.correct, wrong: item.wrong, percent };
   });
-
-  return (
-    <div className='page'>
-      <h1>Statistics Page</h1>
-      <p>This is Statistics page</p>
-      <Bar
-        data={{
-          labels: ['date', 'new', 'quantity', 'wrong', 'correct'],
-          datasets: [
-            {
-              label: 'sprint',
-              data: [12, 19, 3, 5, 2],
-              backgroundColor: [
-                'rgba(255, 99, 132, 0.2)',
-                'rgba(54, 162, 235, 0.2)',
-                'rgba(255, 206, 86, 0.2)',
-                'rgba(75, 192, 192, 0.2)',
-              ],
-              borderColor: [
-                'rgba(255, 99, 132, 1)',
-                'rgba(54, 162, 235, 1)',
-                'rgba(255, 206, 86, 1)',
-                'rgba(75, 192, 192, 1)',
-              ],
-              borderWidth: 1,
-            },
-          ],
-        }}
-        width={600}
-        height={400}
-        options={{
-          maintainAspectRatio: false,
-        }}
-      />
-    </div>
-  );
 }
 
 export { StatisticsPage };
