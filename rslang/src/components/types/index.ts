@@ -56,7 +56,7 @@ export interface ModalChildrenProps {
 }
 
 export interface dataOptions {
-  date: string;
+  date: number;
   new: number;
   quantity: number;
   wrong: number;
@@ -65,8 +65,11 @@ export interface dataOptions {
 
 export interface reternDataOptions {
   date: string;
+  fulldate: string;
+  time: string;
   new: number;
   correct: number;
   wrong: number;
   percent: number;
+  total: number;
 }

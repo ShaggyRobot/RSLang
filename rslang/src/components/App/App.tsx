@@ -27,6 +27,7 @@ function App(): JSX.Element {
           <Route path='textbook' element={<TextbookPage />} />
           <Route path='textbook/words/group=:group&page=:page' element={<WordsPage />} />
           <Route path='statistics' element={<StatisticsPage />} />
+          {/* <Route path='statistics/all' element={<StatisticsPage />} /> */}
 
           <Route path='sprint' element={<SprintPage />} />
           <Route path='audiocall' element={<AudioCallPage />} />

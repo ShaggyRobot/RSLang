@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
-  Button,
   CssBaseline,
   Divider,
   Drawer,
