@@ -54,3 +54,19 @@ export interface ModalChildrenProps {
   window?: Window;
   nameOption?: string;
 }
+
+export interface dataOptions {
+  date: string;
+  new: number;
+  quantity: number;
+  wrong: number;
+  correct: number;
+}
+
+export interface reternDataOptions {
+  date: string;
+  new: number;
+  correct: number;
+  wrong: number;
+  percent: number;
+}

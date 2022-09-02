@@ -21,11 +21,12 @@ import { createUseStyles } from 'react-jss';
 
 import { NavLink } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
+
 import { navMenu } from '../../constants/menu';
 
 import './style.scss';
 import AuthNav from '../AuthNav';
-import { useSelector } from 'react-redux';
 import { authSelectors } from '../../RTK/slices/auth';
 import UserMenu from '../UserMenu';
 
