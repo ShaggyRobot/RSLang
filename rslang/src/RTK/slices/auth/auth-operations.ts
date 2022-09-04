@@ -35,7 +35,7 @@ function getErrorMessage(error: unknown): string {
 }
 
 const logUp = createAsyncThunk<SignUpCredentials, SignUpCredentials, { rejectValue: string }>(
-  'auth/logUp',
+  'stati/logUp',
   async (credentials: SignUpCredentials) => {
     try {
       const { data } = await axios.post('/users', credentials);

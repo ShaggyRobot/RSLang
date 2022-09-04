@@ -64,7 +64,7 @@ export interface dataDate {
   learn?: number;
 }
 
-export interface reternDataOptions {
+export interface returnDataOptions {
   date: string;
   fulldate: string;
   time: string;
@@ -73,4 +73,10 @@ export interface reternDataOptions {
   wrong: number;
   percent: number;
   total: number;
+}
+
+export interface DataOptions {
+  learnedWords: number;
+  optional: {};
+  status: null | string;
 }

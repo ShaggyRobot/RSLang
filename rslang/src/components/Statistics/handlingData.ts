@@ -1,6 +1,6 @@
-import { dataDate, reternDataOptions } from '../types';
+import { dataDate, returnDataOptions } from '../types';
 
-export default function handlingData(dataBase: dataDate[]): reternDataOptions[] {
+export default function handlingData(dataBase: dataDate[]): returnDataOptions[] {
   return dataBase.map(item => {
     const newDate = new Date(item.date);
     const num = newDate.getDate();
