@@ -1,6 +1,6 @@
-import { dataOptions, reternDataOptions } from '../types';
+import { dataDate, reternDataOptions } from '../types';
 
-export default function handlingData(dataBase: dataOptions[]): reternDataOptions[] {
+export default function handlingData(dataBase: dataDate[]): reternDataOptions[] {
   return dataBase.map(item => {
     const newDate = new Date(item.date);
     const num = newDate.getDate();
@@ -26,6 +26,7 @@ export default function handlingData(dataBase: dataOptions[]): reternDataOptions
       wrong: item.wrong,
       percent,
       total,
+      quantity: item.quantity,
     };
   });
 }

@@ -2,14 +2,16 @@ import React from 'react';
 import { Typography, Container, Box } from '@mui/material';
 
 import Statistics from '../components/Statistics';
-import SelectDate from '../components/Statistics/SelectDate';
 import styles from './PagesStyle.module.scss';
+import data from '../components/Statistics/db.json';
 
 function StatisticsPage(): JSX.Element {
+  const optionsData = data.statistics;
+  const noData = 'No data';
+
   return (
     <div className={styles.statisticsPage}>
       <h1>Statistics Page</h1>
-
       <Container component='main' maxWidth='xs'>
         <Box
           sx={{
@@ -18,65 +20,40 @@ function StatisticsPage(): JSX.Element {
             alignItems: 'center',
           }}
         >
-          <SelectDate />
           <Typography component='h2' variant='h5'>
             Sprint
           </Typography>
           <Box>
-            <Statistics />
+            {data.statistics.sprint.length ? (
+              <Statistics data={optionsData.sprint} option={false} />
+            ) : (
+              <div>{noData}</div>
+            )}
           </Box>
           <Typography component='h2' variant='h5'>
             Audio Call
           </Typography>
           <Box>
-            <Statistics />
+            {data.statistics.sprint.length ? (
+              <Statistics data={optionsData.audio} option={false} />
+            ) : (
+              <div>{noData}</div>
+            )}
           </Box>
           <Typography component='h2' variant='h5'>
             Words
           </Typography>
           <Box>
-            <Statistics />
+            {data.statistics.sprint.length ? (
+              <Statistics data={optionsData.words} option={true} />
+            ) : (
+              <div>{noData}</div>
+            )}
           </Box>
         </Box>
       </Container>
     </div>
   );
 }
-
-// function StatisticsPage(): JSX.Element {
-//   // const logOutHandler = () => dispatch(authOperations.logOut());
-//   return (
-//     <div className='page'>
-//       <h1>Statistics Page</h1>
-
-//       <div className={styles.statisticsPage}>
-//         <Stack spacing={2} direction='row'>
-//           <NavLink to='/statistics'>
-//             <Button
-//               type='button'
-//               // onClick={logOutHandler}
-//               color='success'
-//               variant='contained'
-//               size='small'
-//             >
-//               Daily
-//             </Button>
-//           </NavLink>
-//           <NavLink to='/statistics/all'>
-//             <Button
-//               type='button'
-//               // onClick={logOutHandler}
-//               color='success'
-//               variant='contained'
-//               size='small'
-//             >
-//               All
-//             </Button>
-//           </NavLink>
-//         </Stack>
-//       </div>
-//     </div>
-//   );
-// }
 
 export { StatisticsPage };

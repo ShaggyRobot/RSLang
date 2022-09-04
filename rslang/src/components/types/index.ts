@@ -55,12 +55,13 @@ export interface ModalChildrenProps {
   nameOption?: string;
 }
 
-export interface dataOptions {
+export interface dataDate {
   date: number;
   new: number;
-  quantity: number;
   wrong: number;
   correct: number;
+  quantity?: number;
+  learn?: number;
 }
 
 export interface reternDataOptions {
@@ -72,4 +73,10 @@ export interface reternDataOptions {
   wrong: number;
   percent: number;
   total: number;
+}
+
+export interface dataOptions {
+  sprint: dataDate[];
+  audio: dataDate[];
+  words: dataDate[];
 }

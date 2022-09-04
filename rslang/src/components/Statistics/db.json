@@ -28,6 +28,20 @@
                 "quantity": 5,
                 "wrong": 6,
                 "correct": 10
+            },
+            {
+                "date": 1662281789224,
+                "new": 2,
+                "quantity": 3,
+                "wrong": 6,
+                "correct": 19
+            },
+            {
+                "date": 1662281799681,
+                "new": 3,
+                "quantity": 5,
+                "wrong": 6,
+                "correct": 10
             }
         ],
         "audio": [
@@ -41,7 +55,7 @@
         ],
         "words": [
             {
-                "date": 78654325678976543,
+                "date": 1662281799681,
                 "learn": 23,
                 "new": 5,
                 "wrong": 6,
