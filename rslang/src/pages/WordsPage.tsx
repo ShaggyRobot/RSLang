@@ -18,7 +18,7 @@ function WordsPage(): JSX.Element {
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
 
   useEffect(() => {
-    getWords(parseInt(group || '0'), parseInt(page || '0')).then((words) => {
+    getWords(parseInt(group || '0'), parseInt(page || '0')).then(words => {
       setWords(words);
     });
   }, [group, page]);
@@ -29,7 +29,7 @@ function WordsPage(): JSX.Element {
 
   const play = (id: string): void => {
     const baseUrl = process.env.REACT_APP_BASE_URL;
-    const word = words.find((word) => word.id === id);
+    const word = words.find(word => word.id === id);
 
     const audioWord = new Audio(`${baseUrl}/${word!.audio}`);
     const audioMeaning = new Audio(`${baseUrl}/${word!.audioMeaning}`);
@@ -57,10 +57,10 @@ function WordsPage(): JSX.Element {
     navigate(`/textbook/words/group=${group}&page=${page - 1}`);
   };
 
-  const wordList = words.map((word) => <WordCard word={word} play={play} key={word.id} />);
+  const wordList = words.map(word => <WordCard word={word} play={play} key={word.id} />);
 
   return (
-    <div className='page'>
+    <div className='page words-page'>
       <h1>{`Group ${group} Page ${page}`}</h1>
       <Container>
         <Pagination

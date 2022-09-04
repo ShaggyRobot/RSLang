@@ -1,18 +1,18 @@
 import React from 'react';
-// import { useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { Route, Routes } from 'react-router-dom';
 
-// import { RootState } from '../../RTK/store';
+import { RootState } from '../../RTK/store';
 import './App.scss';
 
 import { ToastContainer } from 'react-toastify';
 
-import { HomePage } from '../../pages/HomePage';
-import { AboutPage } from '../../pages/AboutPage';
-import { SprintPage } from '../../pages/SprintPage';
+import { HomePage } from '../../pages/homePage/HomePage';
+import { AboutPage } from '../../pages/aboutPage/AboutPage';
+// import { SprintPage } from '../../pages/sprintPage/SprintPage';
 import { TextbookPage } from '../../pages/TextbookPage';
 import { NotFoundPage } from '../../pages/NotFoundPage';
-import { AudioCallPage } from '../../pages/AudioCallPage';
+// import { AudioCallPage } from '../../pages/audioCallPage/AudioCallPage';
 import { StatisticsPage } from '../../pages/StatisticsPage';
 import { SignIn } from '../../pages/SignIn';
 import { SignUp } from '../../pages/SignUp';
@@ -32,8 +32,8 @@ function App(): JSX.Element {
           <Route path='textbook/words/group=:group&page=:page' element={<WordsPage />} />
           <Route path='statistics' element={<StatisticsPage />} />
 
-          <Route path='sprint' element={<SprintPage />} />
-          <Route path='audiocall' element={<AudioCallPage />} />
+          {/* <Route path='sprint' element={<SprintPage />} />
+          <Route path='audiocall' element={<AudioCallPage />} /> */}
 
           <Route path='signin' element={<SignIn />} />
           <Route path='singup' element={<SignUp />} />

@@ -1,0 +1,44 @@
+.textbook-page {
+  background-image: url('../../../public/images/1618546490_60-funart_pro-p-oboi-fon-peizazh-art-65.jpg');
+}
+
+.words-page {
+  background-image: url('../../../public/images/1660117353_9-kartinkin-net-p-illyustrirovannie-foni-krasivo-10.jpg');
+}
+
+.home-page {
+  background-image: url('../../../public/images/1618546481_15-funart_pro-p-oboi-fon-peizazh-art-15.jpg');
+  display: flex;
+  flex-direction: column;
+  justify-content: top;
+  align-items: center;
+}
+
+.home-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 38rem;
+}
+
+.new-words {
+  color: white;
+}
+
+.new-words,
+.vocabulary,
+.statistics {
+  border: solid 3px rgb(255, 255, 255);
+  border-radius: 15px;
+  margin: 3rem 0;
+}
+
+.vocabulary {
+  color: #265178;
+  border-color: #265178;
+}
+
+.statistics {
+  border-color: black;
+}

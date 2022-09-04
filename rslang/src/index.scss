@@ -23,7 +23,7 @@ a {
   text-decoration: underline;
 }
 
-a{
+a {
   text-decoration: none;
   color: black;
 }
@@ -34,7 +34,8 @@ a{
   text-decoration: underline;
 }
 
-.page{
+.page {
   flex-grow: 1;
   margin-top: 4rem;
+  background-size: cover;
 }

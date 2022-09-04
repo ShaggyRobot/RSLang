@@ -2,10 +2,8 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { NavLink, Outlet } from 'react-router-dom';
 
-
 import Footer from '../Menu/Footer';
 import PersistentDrawerRight from '../Menu/Menu';
-
 
 import { authSelectors } from '../../RTK/slices/auth';
 
@@ -17,7 +15,7 @@ function Layout(): JSX.Element {
 
   return (
     <>
-      <header style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
+      {/* <header style={{ display: 'flex', gap: '1rem', justifyContent: 'center' }}>
         <NavLink to='/'>Home</NavLink>
         <NavLink to='/about'>About</NavLink>
         <NavLink to='/textbook'>Textbook</NavLink>
@@ -25,7 +23,7 @@ function Layout(): JSX.Element {
         <NavLink to='/sprint'>Sprint Game</NavLink>
         <NavLink to='/audiocall'>Audiocall Game</NavLink>
         {isLoggedIn ? <UserMenu /> : <AuthNav />}
-      </header>
+      </header> */}
       <Outlet />
       <PersistentDrawerRight />
       <Footer />

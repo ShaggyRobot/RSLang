@@ -5,7 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { ThemeProvider } from 'react-jss';
 
-
 import store from './RTK/store';
 
 import App from './components/App/App';

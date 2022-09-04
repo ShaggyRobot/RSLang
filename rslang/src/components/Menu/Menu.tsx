@@ -93,14 +93,6 @@ export default function PersistentDrawerRight(): JSX.Element {
         })}
       >
         <Toolbar>
-          <Button
-            color='primary'
-            aria-controls='simple-menu'
-            aria-haspopup='true'
-            // onClick={handleClick}
-          >
-            LogIn
-          </Button>
           <Typography variant='h6' noWrap className={classes.title}>
             RS Lang
           </Typography>
@@ -115,13 +107,7 @@ export default function PersistentDrawerRight(): JSX.Element {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className={classes.drawerHeader} />
-      </main>
+
       <Drawer
         className={classes.drawer}
         variant='persistent'
