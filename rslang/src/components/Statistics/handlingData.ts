@@ -11,6 +11,7 @@ export default function handlingData(dataBase: dataDate[]): reternDataOptions[] 
     const fullDate = `${(9 < num ? '' : '0') + num}.${
       (9 < month ? '' : '0') + month
     }.${newDate.getFullYear()}`;
+
     const fullTime = `${(9 < hour ? '' : '0') + hour}${(9 < minute ? ':' : ':0') + minute}`;
 
     const date = `${fullDate} ${fullTime}`;

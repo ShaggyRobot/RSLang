@@ -18,6 +18,7 @@ function StatisticsPage(): JSX.Element {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            justifyContent: 'center',
           }}
         >
           <Typography component='h2' variant='h5'>

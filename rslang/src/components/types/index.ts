@@ -74,9 +74,3 @@ export interface reternDataOptions {
   percent: number;
   total: number;
 }
-
-export interface dataOptions {
-  sprint: dataDate[];
-  audio: dataDate[];
-  words: dataDate[];
-}
