@@ -7,29 +7,29 @@ import ArrowCircleRightSharpIcon from '@mui/icons-material/ArrowCircleRightSharp
 
 import { Button, Stack } from '@mui/material';
 
-import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 
 import Typography from '@mui/material/Typography';
 
-import CountDownTimer from './CountDownTimer';
 import { getRandomIndex } from '../../components/utils/getRandomIndex';
 import { IWord } from '../../API/words';
 import OpenModal from '../../components/Modal';
+import { GameResultsElement, IGameStats } from '../audioCallPage/GameResultsElement';
+import { Timer } from './CountDownTimer';
+
+const initialStatistic = {
+  correct: [],
+  wrong: [],
+  combo: 0,
+  comboLongest: 0,
+};
 
 function SprintGame({ words }: { words: IWord[] }): JSX.Element {
   const [index, setIndex] = useState(0);
-  const [statistic, setStatistic] = useState<{
-    correctAnswers: IWord[];
-    incorrectAnswers: IWord[];
-    combo: number;
-  }>({
-    correctAnswers: [],
-    incorrectAnswers: [],
-    combo: 0,
-  });
+  const [statistic, setStatistic] = useState<IGameStats>(initialStatistic);
+  const [openResult, setOpenResult] = useState(false);
 
   const currentWord = useMemo(() => {
     return words[index].word.toLocaleUpperCase();
@@ -41,22 +41,26 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
     });
   }, [words]);
 
+  const restart = (): void => {
+    setStatistic(initialStatistic);
+  };
+
   const checkAnswer = (word: IWord, translate: string, type: boolean): void => {
     const isCorrect = word.wordTranslate === translate;
 
     if (isCorrect === type) {
       setStatistic(prevStatistic => {
+        prevStatistic.correct.push(word);
         return {
           ...prevStatistic,
-          corretAnswers: prevStatistic.correctAnswers.push(word),
           combo: prevStatistic.combo + 1,
         };
       });
     } else {
       setStatistic(prevStatistic => {
+        prevStatistic.wrong.push(word);
         return {
           ...prevStatistic,
-          incorretAnswers: prevStatistic.incorrectAnswers.push(word),
           combo: 0,
         };
       });
@@ -65,14 +69,18 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
       setIndex(prevIndex => prevIndex + 1);
     } else {
       console.log('end');
+      setOpenResult(true);
     }
   };
 
   const translateWord = wordTranslateArr[getRandomIndex(index, wordTranslateArr.length)];
-  console.log(statistic, translateWord, index);
+  if (openResult) {
+    return <GameResultsElement stats={statistic} handleRestart={restart} />;
+  }
+
   return (
     <div className='sprint'>
-      <CountDownTimer seconds={30} />
+      <Timer />
       <div className='games-field'>
         <CardContent className='card-content'>
           <Typography className='word-text'>{`${currentWord}`.toUpperCase()}</Typography>

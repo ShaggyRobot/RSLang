@@ -54,3 +54,28 @@ export interface ModalChildrenProps {
   window?: Window;
   nameOption?: string;
 }
+
+export interface dataDate {
+  date: number;
+  new: number;
+  wrong: number;
+  correct: number;
+  quantity?: number;
+  learn?: number;
+}
+
+export interface returnDataOptions {
+  fulldate: string;
+  time: string;
+  new: number;
+  correct: number;
+  wrong: number;
+  percent: number;
+  total: number;
+}
+
+export interface DataOptions {
+  learnedWords: number;
+  optional: {};
+  status: null | string;
+}

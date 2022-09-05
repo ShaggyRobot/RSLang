@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 
-import { clearSliceAction, getWordsThunk } from '../../RTK/slices/words/wordsSlice';
+import { clearStateAction, getWordsThunk } from '../../RTK/slices/words/wordsSlice';
 
 import { AppDispatch } from '../../RTK/store';
 import './style.scss';
@@ -9,7 +9,7 @@ import './style.scss';
 function HomePage(): JSX.Element {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(clearSliceAction());
+    dispatch(clearStateAction());
   }, []);
 
   return (

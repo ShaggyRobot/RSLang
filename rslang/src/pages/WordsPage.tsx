@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Grid, Pagination } from '@mui/material';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 
+import { Container, Grid, Pagination } from '@mui/material';
+
+import { AppDispatch, RootState } from '../RTK/store';
+import { getWordsThunk } from '../RTK/slices/words/wordsSlice';
+
 import Preloader from '../components/preloader/preloader';
 import { WordCard } from '../components/WordCard';
-import { getWordsThunk } from '../RTK/slices/words/wordsSlice';
-import { AppDispatch, RootState } from '../RTK/store';
-
-interface IAudio {
-  audio: HTMLAudioElement;
-  id: string;
-}
+import { IAudio } from '../components/Interfaces/Iaudio';
 
 function WordsPage(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();

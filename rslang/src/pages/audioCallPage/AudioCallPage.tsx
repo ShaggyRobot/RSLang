@@ -7,19 +7,11 @@ import { RootState } from '../../RTK/store';
 
 import { AudioCallGame } from './AudioCallGame';
 import { DifficultySelect } from './difficultySelect';
+import { getRandomArr } from '../../components/utils/getGandomArr';
 import Preloader from '../../components/preloader/preloader';
 
 function AudioCallPage(): JSX.Element {
   const wordsSlice = useSelector((state: RootState) => state.wordsSlice);
-
-  const getRandomWords = (): Array<IWord> => {
-    const words = wordsSlice.words;
-    const rndWords: Set<IWord> = new Set();
-    while (rndWords.size < words.length) {
-      rndWords.add(words[Math.floor(Math.random() * 20)]);
-    }
-    return Array.from(rndWords);
-  };
 
   return (
     <div className='page'>
@@ -27,7 +19,7 @@ function AudioCallPage(): JSX.Element {
         {wordsSlice.status === 'loading' ? (
           <Preloader />
         ) : wordsSlice.status === 'resolved' ? (
-          <AudioCallGame words={getRandomWords()} />
+          <AudioCallGame words={getRandomArr(wordsSlice.words)} />
         ) : (
           <DifficultySelect />
         )}
