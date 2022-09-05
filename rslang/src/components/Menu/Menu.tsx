@@ -113,13 +113,6 @@ export default function PersistentDrawerRight(): JSX.Element {
           </IconButton>
         </Toolbar>
       </AppBar>
-      {/* <main
-        className={clsx(classes.content, {
-          [classes.contentShift]: open,
-        })}
-      >
-        <div className={classes.drawerHeader} />
-      </main> */}
       <Drawer
         className={classes.drawer}
         variant='persistent'

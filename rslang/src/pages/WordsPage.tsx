@@ -19,7 +19,6 @@ function WordsPage(): JSX.Element {
 
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
 
-
   useEffect(() => {
     const groupNum = parseInt(group || '0');
     const pageNum = parseInt(page || '0');
@@ -63,7 +62,7 @@ function WordsPage(): JSX.Element {
   const wordList = words.map(word => <WordCard word={word} play={play} key={word.id} />);
 
   return (
-    <div className='page'>
+    <div className='page words-page'>
       <h1>{`Group ${group} Page ${page}`}</h1>
       <Container>
         <Pagination

@@ -1,11 +1,11 @@
-.game{
+.game {
   height: 100%;
   flex-direction: column;
   display: flex;
   align-items: center;
 }
 
-.game-field{
+.game-field {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,23 +14,23 @@
   gap: 2rem;
 }
 
-.game-results{
+.game-results {
   display: flex;
   flex-direction: column;
   padding: 3rem;
   justify-content: center;
   align-items: center;
 
-  ul{
+  ul {
     padding: 0;
   }
 
-  li{
+  li {
     list-style: none;
   }
 }
 
-.play-audio-btn{
+.play-audio-btn {
   width: 150px;
   height: 150px;
   border-radius: 50%;
@@ -39,8 +39,7 @@
   cursor: pointer;
   font-size: large;
   transition: all 0.25s;
-  &:hover{
+  &:hover {
     background-color: #3785f1;
-
   }
 }

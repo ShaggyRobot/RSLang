@@ -5,9 +5,9 @@ import './App.scss';
 
 import { ToastContainer } from 'react-toastify';
 
-import { HomePage } from '../../pages/HomePage';
-import { AboutPage } from '../../pages/AboutPage';
-import { SprintPage } from '../../pages/SprintPage';
+import { HomePage } from '../../pages/homePage/HomePage';
+import { AboutPage } from '../../pages/aboutPage/AboutPage';
+import { SprintPage } from '../../pages/sprintPage/SprintPage';
 import { TextbookPage } from '../../pages/TextbookPage';
 import { NotFoundPage } from '../../pages/NotFoundPage';
 import { AudioCallPage } from '../../pages/audioCallPage/AudioCallPage';

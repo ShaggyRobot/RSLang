@@ -8,7 +8,12 @@ import { IAudio } from '../../components/Interfaces/Iaudio';
 import { AnswerElem } from './AnswerElem';
 import { GameResultsElement } from './GameResultsElement';
 
+import { useDispatch, useSelector } from 'react-redux';
+
 import './audio-call.scss';
+
+import { AppDispatch, RootState } from '../../RTK/store';
+import { putStatisticsThunk } from '../../RTK/slices/statistics/statistics-operations';
 
 interface IGameState {
   answer: IWord | null;
@@ -24,6 +29,8 @@ interface IGameStats {
 }
 
 function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
+  const userId = useSelector((state: RootState) => state.auth.userId)
+  const dispatch = useDispatch<AppDispatch>();
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
   const [answerGiven, setAnswerGiven] = useState<string | null>(null);
   const [answer, setAnswer] = useState<string | null>(null);
@@ -80,9 +87,11 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
         .map(elem => elem.variant);
 
       setGameState({ ...gameState, answer, variants: varsShuffled, finished: false });
-    } else {
+    } else { // ! ----------------------------------------------------------------------------------
       setGameState({ ...gameState, finished: true });
       setCurrentAudio(null);
+      const optional = stats.current;
+      // dispatch(putStatisticsThunk({id: userId!, optional: stats.current}));
     }
   };
 
@@ -171,4 +180,4 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
   );
 }
 
-export { AudioCallGame };
+export { AudioCallGame, type IGameStats };

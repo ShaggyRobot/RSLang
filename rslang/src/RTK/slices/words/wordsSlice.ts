@@ -1,7 +1,12 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { Action } from 'history';
 
-import { getWords, IWord } from '../../../API/words';
+import { getWords, IWord, getWordsWithoutPage } from '../../../API/words';
+
+interface IWordsState {
+  words: Array<IWord>;
+  status: null | string;
+}
 
 interface IWordsState {
   words: Array<IWord>;
@@ -11,7 +16,7 @@ interface IWordsState {
 const getWordsThunk = createAsyncThunk(
   'words/getWordsThunk',
   async function (arg: { group: number; page: number }): Promise<IWord[]> {
-    const words = await getWords(arg.group, arg.page);
+    const words = await getWordsWithoutPage(arg.group);
     return words;
   },
 );

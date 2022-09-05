@@ -14,7 +14,7 @@ function TextbookPage(): JSX.Element {
   }, []);
 
   return (
-    <div className='page'>
+    <div className='page textbook-page'>
       <h1>Textbook Page</h1>
       <Box display='flex' gap={2} justifyContent='center' flexWrap='wrap'>
         <Button variant='contained' size='large' color='success'>
