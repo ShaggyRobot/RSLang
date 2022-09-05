@@ -14,7 +14,6 @@ export default function handlingData(dataBase: dataDate[]): returnDataOptions[] 
 
     const fullTime = `${(9 < hour ? '' : '0') + hour}${(9 < minute ? ':' : ':0') + minute}`;
 
-    const date = `${fullDate} ${fullTime}`;
     const total = item.correct + item.wrong;
     const percent = Math.ceil((item.correct / total) * 100);
 
