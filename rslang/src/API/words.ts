@@ -23,4 +23,13 @@ const getWords = async (group = 0, page = 0): Promise<Array<IWord>> => {
   return words;
 };
 
-export { getWords, type IWord };
+const getWordsWithoutPage = async (group = 0): Promise<Array<IWord>> => {
+  const baseUrl = process.env.REACT_APP_BASE_URL;
+  const response = await fetch(`${baseUrl}/words?group=${group}`);
+  const words = await response.json();
+
+  return words;
+};
+
+
+export { getWords, type IWord, getWordsWithoutPage};

@@ -1,9 +1,12 @@
-import { Container, Grid, Pagination } from '@mui/material';
 import React, { useEffect, useState } from 'react';
+import { Container, Grid, Pagination } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useNavigate } from 'react-router-dom';
 
-import { getWords, IWord } from '../API/words';
+import Preloader from '../components/preloader/preloader';
 import { WordCard } from '../components/WordCard';
+import { getWordsThunk } from '../RTK/slices/words/wordsSlice';
+import { AppDispatch, RootState } from '../RTK/store';
 
 interface IAudio {
   audio: HTMLAudioElement;
@@ -11,17 +14,18 @@ interface IAudio {
 }
 
 function WordsPage(): JSX.Element {
+  const dispatch = useDispatch<AppDispatch>();
+  const { words, status } = useSelector((state: RootState) => state.wordsSlice);
   const { group, page } = useParams();
   const navigate = useNavigate();
-  const [words, setWords] = useState<IWord[]>([]);
 
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
 
   useEffect(() => {
-    getWords(parseInt(group || '0'), parseInt(page || '0')).then(words => {
-      setWords(words);
-    });
-  }, [group, page]);
+    const groupNum = parseInt(group || '0');
+    const pageNum = parseInt(page || '0');
+    dispatch(getWordsThunk({ group: groupNum, page: pageNum }));
+  }, [group, page, dispatch]);
 
   useEffect(() => {
     currentAudio?.audio.play();
@@ -73,9 +77,14 @@ function WordsPage(): JSX.Element {
           showLastButton
           sx={{ mb: 2, display: 'flex', justifyContent: 'center' }}
         />
-        <Grid container spacing={2}>
-          {wordList}
-        </Grid>
+
+        {status === 'resolved' ? (
+          <Grid container spacing={2}>
+            {wordList}
+          </Grid>
+        ) : (
+          <Preloader />
+        )}
       </Container>
     </div>
   );

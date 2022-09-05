@@ -4,7 +4,6 @@ import clsx from 'clsx';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
-  Button,
   CssBaseline,
   Divider,
   Drawer,
@@ -21,9 +20,14 @@ import { createUseStyles } from 'react-jss';
 
 import { NavLink } from 'react-router-dom';
 
+import { useSelector } from 'react-redux';
+
 import { navMenu } from '../../constants/menu';
 
 import './style.scss';
+import AuthNav from '../AuthNav';
+import { authSelectors } from '../../RTK/slices/auth';
+import UserMenu from '../UserMenu';
 
 const drawerWidth = 240;
 
@@ -71,6 +75,7 @@ const useStyles: Function = createUseStyles((theme: Theme) => ({
 }));
 
 export default function PersistentDrawerRight(): JSX.Element {
+  const isLoggedIn = useSelector(authSelectors.getIsAuthrnticated);
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
@@ -93,6 +98,7 @@ export default function PersistentDrawerRight(): JSX.Element {
         })}
       >
         <Toolbar>
+          {isLoggedIn ? <UserMenu /> : <AuthNav />}
           <Typography variant='h6' noWrap className={classes.title}>
             RS Lang
           </Typography>
@@ -107,7 +113,6 @@ export default function PersistentDrawerRight(): JSX.Element {
           </IconButton>
         </Toolbar>
       </AppBar>
-
       <Drawer
         className={classes.drawer}
         variant='persistent'
