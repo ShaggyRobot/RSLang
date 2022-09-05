@@ -10,7 +10,7 @@ import { AboutPage } from '../../pages/AboutPage';
 import { SprintPage } from '../../pages/SprintPage';
 import { TextbookPage } from '../../pages/TextbookPage';
 import { NotFoundPage } from '../../pages/NotFoundPage';
-import { AudioCallPage } from '../../pages/AudioCallPage';
+import { AudioCallPage } from '../../pages/audioCallPage/AudioCallPage';
 import { StatisticsPage } from '../../pages/StatisticsPage';
 import { SignIn } from '../../pages/SignIn';
 import { SignUp } from '../../pages/SignUp';
