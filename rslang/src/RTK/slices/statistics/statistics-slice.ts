@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { DataOptions } from '../../../components/types';
 
-import getStatisticsThunk from './statistics-operations';
+import { getStatisticsThunk } from './statistics-operations';
 
 const initialState: DataOptions = {
   learnedWords: 0,
