@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { IWord } from '../../API/words';
 
-interface IGameStats {
+export interface IGameStats {
   correct: IWord[];
   wrong: IWord[];
   combo: number;

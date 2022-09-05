@@ -1,0 +1,26 @@
+.about-page {
+  background-image: url('../../../public/images/1636008633_22-papik-pro-p-peizazh-risunok-vektornii-22.jpg');
+  color: #050505;
+}
+
+.about-content {
+  margin: 0 auto;
+  padding: 5rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-start;
+  width: 60%;
+}
+
+.about-content li {
+  list-style: none;
+}
+
+img {
+  width: 8rem;
+  border-radius: 20px;
+}
+
+.shaggy {
+  color: white;
+}
