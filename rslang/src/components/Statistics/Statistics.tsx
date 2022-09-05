@@ -23,7 +23,10 @@ function Statistics(props: { data: dataDate[]; option: boolean }): JSX.Element {
 
   const [date, setDate] = React.useState(lastDate);
 
-  const filterData = currentDate.filter(item => item.fulldate === date);
+  const filterData = currentDate.filter(item => {
+    return item.fulldate === date;
+  });
+
   return (
     <Box sx={{ color: 'text.primary', alignItems: 'center', justifyContent: 'center' }}>
       <FormControl sx={{ width: 150 }} fullWidth>

@@ -65,7 +65,6 @@ export interface dataDate {
 }
 
 export interface returnDataOptions {
-  date: string;
   fulldate: string;
   time: string;
   new: number;

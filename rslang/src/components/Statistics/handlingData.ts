@@ -19,7 +19,6 @@ export default function handlingData(dataBase: dataDate[]): returnDataOptions[] 
     const percent = Math.ceil((item.correct / total) * 100);
 
     return {
-      date,
       fulldate: fullDate,
       time: fullTime,
       new: item.new,

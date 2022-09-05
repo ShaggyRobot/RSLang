@@ -10,11 +10,6 @@ const initialState: DataOptions = {
   status: null,
 };
 
-// {
-//   "learnedWords": 0,
-//   "optional": {}
-// }
-
 const authSlice = createSlice({
   name: 'statistics',
   initialState,
