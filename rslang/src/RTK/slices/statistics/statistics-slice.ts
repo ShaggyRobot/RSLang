@@ -10,7 +10,7 @@ const initialState: DataOptions = {
   status: null,
 };
 
-const authSlice = createSlice({
+const statsSlice = createSlice({
   name: 'statistics',
   initialState,
   reducers: {},
@@ -27,4 +27,4 @@ const authSlice = createSlice({
   },
 });
 
-export default authSlice.reducer;
+export default statsSlice.reducer;

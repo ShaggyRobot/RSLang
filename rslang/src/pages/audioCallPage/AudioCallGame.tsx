@@ -35,9 +35,6 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
   const [answerGiven, setAnswerGiven] = useState<string | null>(null);
   const [answer, setAnswer] = useState<string | null>(null);
 
-  const jwt = useSelector((state: RootState) => state.auth.token!);
-  console.log(jwt);
-
   const [gameState, setGameState] = useState<IGameState>({
     answer: null,
     variants: [],
@@ -93,7 +90,8 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
     } else { // ! ----------------------------------------------------------------------------------
       setGameState({ ...gameState, finished: true });
       setCurrentAudio(null);
-      dispatch(putStatisticsThunk({id: userId!, optional: stats.current, token: jwt}));
+      const optional = stats.current;
+      // dispatch(putStatisticsThunk({id: userId!, optional: stats.current}));
     }
   };
 
