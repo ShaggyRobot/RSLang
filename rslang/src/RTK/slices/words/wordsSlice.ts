@@ -1,6 +1,12 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { Action } from 'history';
 
 import { getWords, IWord } from '../../../API/words';
+
+interface IWordsState {
+  words: Array<IWord>;
+  status: null | string;
+}
 
 const getWordsThunk = createAsyncThunk(
   'words/getWordsThunk',
@@ -10,7 +16,7 @@ const getWordsThunk = createAsyncThunk(
   },
 );
 
-const initialState: { words: IWord[]; status: null | string } = {
+const initialState: IWordsState = {
   words: [],
   status: null,
 };
@@ -18,7 +24,9 @@ const initialState: { words: IWord[]; status: null | string } = {
 const wordsSlice = createSlice({
   name: 'words',
   initialState,
-  reducers: {},
+  reducers: {
+    clearStateAction: (_state: typeof initialState, _action: PayloadAction) => initialState,
+  },
   extraReducers: builder => {
     builder
       .addCase(getWordsThunk.fulfilled, (state, action) => {
@@ -32,3 +40,4 @@ const wordsSlice = createSlice({
 });
 
 export { getWordsThunk, wordsSlice };
+export const { clearStateAction } = wordsSlice.actions;

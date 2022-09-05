@@ -12,7 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 
 import { authReducer } from './slices/auth';
-import { wordsSlice } from './slices/words/wordsSlice';
+import { wordsSlice } from '../RTK/slices/words/wordsSlice';
 
 const middleware = getDefaultMiddleware({
   serializableCheck: {
