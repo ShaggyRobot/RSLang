@@ -12,7 +12,10 @@ import { GameResultsElement } from './GameResultsElement';
 import './audio-call.scss';
 
 import { AppDispatch, RootState } from '../../RTK/store';
-import { putStatisticsThunk } from '../../RTK/slices/statistics/statistics-operations';
+import {
+  getStatisticsThunk,
+  putStatisticsThunk,
+} from '../../RTK/slices/statistics/statistics-operations';
 import {
   deleteUserWordThunk,
   getUserWordsThunk,
@@ -38,6 +41,7 @@ interface IGameResult {
 function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
   const userWords = useSelector((state: RootState) => state.userWordsSlice.words);
   const userId = useSelector((state: RootState) => state.auth.userId);
+  const getStatistics = useSelector((state: RootState) => state.statsSlice);
   const dispatch = useDispatch<AppDispatch>();
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
   const [answerGiven, setAnswerGiven] = useState<string | null>(null);
@@ -74,6 +78,10 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
     currentAudio?.audio.play();
   }, [currentAudio]);
 
+  useEffect(() => {
+    dispatch(getStatisticsThunk());
+  }, [dispatch]);
+
   const handlePlay = (): void => {
     if (currentAudio) {
       currentAudio.audio.play();
@@ -108,13 +116,19 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
       // ? ----------------------------------------------------------------------------------
 
       try {
-
         setResult(stats.current);
       } catch (error) {
         console.error(error);
       } finally {
+        const dateNow = Date.now().toString();
+        const options = {
+          ...getStatistics.optional,
+          [dateNow]: { ...sendStats('AudioChallenge', stats.current, userWords) },
+        };
         dispatch(
-          putStatisticsThunk({ optional: sendStats('AudioChallenge', stats.current, userWords) }),
+          putStatisticsThunk({
+            optional: options,
+          }),
         );
       }
 

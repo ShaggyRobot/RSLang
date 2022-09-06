@@ -55,9 +55,13 @@ const getStatisticsThunk = createAsyncThunk(
   },
 );
 
+interface putOptionsThunk {
+  [key: string]: IGameStatsDTO;
+}
+
 const putStatisticsThunk = createAsyncThunk(
   'statistics/putStatisticsThunk',
-  async (dto: { optional: IGameStatsDTO }, thunkApi) => {
+  async (dto: { optional: putOptionsThunk }, thunkApi) => {
     const { optional } = dto;
 
     const state = thunkApi.getState() as RootState;

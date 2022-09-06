@@ -20,7 +20,7 @@ function StatisticsPage(): JSX.Element {
 
   const optional = data.optional as StatisticOptional;
 
-  console.log(optional);
+  console.log(data);
 
   // const optionsData = data.statistics;
   const noData = 'No data';
