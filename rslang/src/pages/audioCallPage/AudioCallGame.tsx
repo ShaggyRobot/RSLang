@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { Button } from '@mui/material';
@@ -8,12 +9,16 @@ import { IAudio } from '../../components/Interfaces/Iaudio';
 import { AnswerElem } from './AnswerElem';
 import { GameResultsElement } from './GameResultsElement';
 
-import { useDispatch, useSelector } from 'react-redux';
-
 import './audio-call.scss';
 
 import { AppDispatch, RootState } from '../../RTK/store';
 import { putStatisticsThunk } from '../../RTK/slices/statistics/statistics-operations';
+import {
+  deleteUserWordThunk,
+  getUserWordsThunk,
+  postUserWordsThunk,
+} from '../../RTK/slices/userWords/userWordsSlice';
+import { sendStats } from './sendStats';
 
 interface IGameState {
   answer: IWord | null;
@@ -21,7 +26,7 @@ interface IGameState {
   finished: boolean;
 }
 
-interface IGameStats {
+interface IGameResult {
   correct: IWord[];
   wrong: IWord[];
   combo: number;
@@ -29,7 +34,8 @@ interface IGameStats {
 }
 
 function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
-  const userId = useSelector((state: RootState) => state.auth.userId)
+  const userWords = useSelector((state: RootState) => state.userWordsSlice.words);
+  const userId = useSelector((state: RootState) => state.auth.userId);
   const dispatch = useDispatch<AppDispatch>();
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
   const [answerGiven, setAnswerGiven] = useState<string | null>(null);
@@ -41,7 +47,7 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
     finished: false,
   });
 
-  const stats = useRef<IGameStats>({
+  const stats = useRef<IGameResult>({
     correct: [],
     wrong: [],
     combo: 0,
@@ -75,6 +81,7 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
       setAnswerGiven(null);
       vars.add(answer);
       const audio = new Audio(`${baseUrl}/${answer?.audio}`);
+      audio.volume = 0.1;
       setCurrentAudio({ audio, id: answer.id });
       while (vars.size < 5) {
         vars.add(words[Math.floor(Math.random() * words.length)]);
@@ -87,11 +94,35 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
         .map(elem => elem.variant);
 
       setGameState({ ...gameState, answer, variants: varsShuffled, finished: false });
-    } else { // ! ----------------------------------------------------------------------------------
+    } else {
+      // ? ----------------------------------------------------------------------------------
+
+      try {
+        stats.current.correct.forEach(word => {
+          dispatch(postUserWordsThunk({ id: word.id, difficulty: 'learned' }));
+        });
+
+        stats.current.wrong.forEach(word => {
+          if (!userWords.some(userWord => userWord.wordId === word.id)) {
+            console.log(' stats.current.wrong.forEach');
+            dispatch(postUserWordsThunk({ id: word.id, difficulty: 'notLearned' }));
+          }
+        });
+      } catch (error) {
+        console.error(error);
+      } finally {
+        dispatch(getUserWordsThunk()).then(() => {
+          dispatch(putStatisticsThunk({ optional: sendStats(stats.current, userWords) }));
+        });
+      }
+
+      // userWords.forEach(w => {
+      //   dispatch(deleteUserWordThunk({id: w.wordId}));
+      // });
+
       setGameState({ ...gameState, finished: true });
       setCurrentAudio(null);
-      const optional = stats.current;
-      // dispatch(putStatisticsThunk({id: userId!, optional: stats.current}));
+      const optional = JSON.stringify(stats.current);
     }
   };
 
@@ -180,4 +211,4 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
   );
 }
 
-export { AudioCallGame, type IGameStats };
+export { AudioCallGame, type IGameResult };

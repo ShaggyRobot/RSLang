@@ -8,11 +8,6 @@ interface IWordsState {
   status: null | string;
 }
 
-interface IWordsState {
-  words: Array<IWord>;
-  status: null | string;
-}
-
 const getWordsThunk = createAsyncThunk(
   'words/getWordsThunk',
   async function (arg: { group: number; page: number }): Promise<IWord[]> {
