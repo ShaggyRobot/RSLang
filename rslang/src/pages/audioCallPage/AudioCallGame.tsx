@@ -17,6 +17,7 @@ import {
   deleteUserWordThunk,
   getUserWordsThunk,
   postUserWordsThunk,
+  updateUserWordTrunk,
 } from '../../RTK/slices/userWords/userWordsSlice';
 import { sendStats } from './sendStats';
 
@@ -99,13 +100,28 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
 
       try {
         stats.current.correct.forEach(word => {
-          dispatch(postUserWordsThunk({ id: word.id, difficulty: 'learned' }));
+          if (!userWords.some(userWord => userWord.wordId === word.id)) {
+            dispatch(postUserWordsThunk({ id: word.id, difficulty: 'learned' }));
+          } else if (
+            userWords.find(
+              userWord => userWord.wordId === word.id && userWord.difficulty === 'notLearned',
+            )
+          ) {
+            console.log('notLearned --> learned', word.id, word.word);
+            dispatch(updateUserWordTrunk({ id: word.id, difficulty: 'learned' }));
+          }
         });
 
         stats.current.wrong.forEach(word => {
           if (!userWords.some(userWord => userWord.wordId === word.id)) {
-            console.log(' stats.current.wrong.forEach');
             dispatch(postUserWordsThunk({ id: word.id, difficulty: 'notLearned' }));
+          } else if (
+            userWords.find(
+              userWord => userWord.wordId === word.id && userWord.difficulty === 'learned',
+            )
+          ) {
+            console.log('learned --> notLearned', word.id, word.word);
+            dispatch(updateUserWordTrunk({ id: word.id, difficulty: 'notLearned' }));
           }
         });
       } catch (error) {

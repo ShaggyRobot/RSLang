@@ -1,6 +1,3 @@
-import { useSelector } from 'react-redux';
-
-import { RootState } from '../../RTK/store';
 import { IGameResult } from './AudioCallGame';
 
 interface IGameStatsDTO {

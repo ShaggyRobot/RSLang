@@ -30,14 +30,12 @@ const token = {
 };
 
 const postUserWordsThunk = createAsyncThunk(
-  'statistics/putStatisticsThunk',
+  'userWords/postUserWordsThunk',
   async (dto: { id: string; difficulty: string }, thunkApi) => {
     const state = thunkApi.getState() as RootState;
     const userId = state.auth.userId;
     const jwt = state.auth.token;
     token.set(jwt!);
-    // thunkApi.dispatch(getStatisticsThunk(dto.id));
-    console.log('postUserWords');
     try {
       const { data } = await axios.post(`/users/${userId}/words/${dto.id}`, {
         difficulty: dto.difficulty,
@@ -47,14 +45,14 @@ const postUserWordsThunk = createAsyncThunk(
     } catch (error) {
       const result = error as IError;
       if (result.response.status === 417) {
-        console.error('User already exists');
+        console.error('Word already exists');
       }
       return { message: getErrorMessage(error) };
     }
   },
 );
 
-const getUserWordsThunk = createAsyncThunk('statistics/getWordsThunk', async (_, thunkApi) => {
+const getUserWordsThunk = createAsyncThunk('userWords/getUserWordsThunk', async (_, thunkApi) => {
   const state = thunkApi.getState() as RootState;
   const userId = state.auth.userId;
   const jwt = state.auth.token;
@@ -72,6 +70,30 @@ const getUserWordsThunk = createAsyncThunk('statistics/getWordsThunk', async (_,
     return { message: getErrorMessage(error) };
   }
 });
+
+const updateUserWordTrunk = createAsyncThunk(
+  'userWords/updateUserWordsThunk',
+  async (dto: { id: string; difficulty: string }, thunkApi) => {
+    const state = thunkApi.getState() as RootState;
+    const userId = state.auth.userId;
+    const jwt = state.auth.token;
+    token.set(jwt!);
+    console.log('updateUserWords');
+    try {
+      const { data } = await axios.put(`/users/${userId}/words/${dto.id}`, {
+        difficulty: dto.difficulty,
+        optional: {},
+      });
+      return data;
+    } catch (error) {
+      const result = error as IError;
+      if (result.response.status === 417) {
+        console.error('Word already exists');
+      }
+      return { message: getErrorMessage(error) };
+    }
+  },
+);
 
 const deleteUserWordThunk = createAsyncThunk(
   'statistics/deleteWordThunk',
@@ -106,10 +128,14 @@ const userWordsSlice = createSlice({
       .addCase(deleteUserWordThunk.fulfilled, (state, action) => {
         state.words = state.words.filter(word => word.wordId !== action.payload);
       })
-      .addCase(postUserWordsThunk.fulfilled, (state, action) => {
-        
-      });
+      .addCase(postUserWordsThunk.fulfilled, (state, action) => {});
   },
 });
 
-export { postUserWordsThunk, getUserWordsThunk, deleteUserWordThunk, userWordsSlice };
+export {
+  postUserWordsThunk,
+  getUserWordsThunk,
+  deleteUserWordThunk,
+  updateUserWordTrunk,
+  userWordsSlice,
+};
