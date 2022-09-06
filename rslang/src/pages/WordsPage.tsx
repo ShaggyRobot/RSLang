@@ -63,7 +63,7 @@ function WordsPage(): JSX.Element {
 
   return (
     <div className='page words-page'>
-      <h1>{`Group ${group} Page ${page}`}</h1>
+      <h1>{`Group ${Number(group) + 1} Page ${Number(page) + 1}`}</h1>
       <Container>
         <Pagination
           count={30}
