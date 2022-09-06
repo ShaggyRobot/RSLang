@@ -1,3 +1,5 @@
+import { IGameStatsDTO } from '../../pages/audioCallPage/sendStats';
+
 export interface IError {
   message: string;
   code: string;
@@ -86,4 +88,12 @@ export interface StatisticOptional {
   game: string;
   learned: number;
   notLearned: number;
+}
+
+export interface putOptionsThunk {
+  [key: string]: IGameStatsDTO;
+}
+
+export interface putGameOptions {
+  AudioChallenge: putOptionsThunk;
 }

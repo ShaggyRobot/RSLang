@@ -40,7 +40,7 @@ interface IGameResult {
 
 function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
   const userWords = useSelector((state: RootState) => state.userWordsSlice.words);
-  const userId = useSelector((state: RootState) => state.auth.userId);
+  // const userId = useSelector((state: RootState) => state.auth.userId);
   const getStatistics = useSelector((state: RootState) => state.statsSlice);
   const dispatch = useDispatch<AppDispatch>();
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
@@ -121,10 +121,12 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
         console.error(error);
       } finally {
         const dateNow = Date.now().toString();
+
         const options = {
           ...getStatistics.optional,
           [dateNow]: { ...sendStats('AudioChallenge', stats.current, userWords) },
         };
+
         dispatch(
           putStatisticsThunk({
             optional: options,

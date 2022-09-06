@@ -21,6 +21,11 @@ function StatisticsPage(): JSX.Element {
   const optional = data.optional as StatisticOptional;
 
   console.log(data);
+  // console.log(Object.values(data.optional));
+
+  // Object.values(data).map(item => {
+  //   console.log(item);
+  // });
 
   // const optionsData = data.statistics;
   const noData = 'No data';

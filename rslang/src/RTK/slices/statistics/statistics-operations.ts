@@ -4,9 +4,8 @@ import { toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import { IError } from '../../../components/types';
+import { IError, putOptionsThunk } from '../../../components/types';
 import { RootState } from '../../store';
-import { IGameStatsDTO } from '../../../pages/audioCallPage/sendStats';
 
 const options = {
   autoClose: 3000,
@@ -39,7 +38,6 @@ const getStatisticsThunk = createAsyncThunk(
     token.set(jwt!);
     try {
       const { data } = await axios.get(`/users/${userId}/statistics`);
-      // console.log('getStatistics', data);
       return data;
     } catch (error) {
       const result = error as IError;
@@ -54,10 +52,6 @@ const getStatisticsThunk = createAsyncThunk(
     }
   },
 );
-
-interface putOptionsThunk {
-  [key: string]: IGameStatsDTO;
-}
 
 const putStatisticsThunk = createAsyncThunk(
   'statistics/putStatisticsThunk',
