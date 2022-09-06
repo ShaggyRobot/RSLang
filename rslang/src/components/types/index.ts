@@ -55,15 +55,6 @@ export interface ModalChildrenProps {
   nameOption?: string;
 }
 
-export interface dataDate {
-  date: number;
-  new: number;
-  wrong: number;
-  correct: number;
-  quantity?: number;
-  learn?: number;
-}
-
 export interface returnDataOptions {
   fulldate: string;
   time: string;
@@ -78,4 +69,21 @@ export interface DataOptions {
   learnedWords: number;
   optional: {};
   status: null | string;
+}
+
+export interface dataDate {
+  date: number;
+  new: number;
+  wrong: number;
+  correct: number;
+  quantity?: number;
+  learn?: number;
+}
+
+export interface StatisticOptional {
+  combo: number;
+  date: number;
+  game: string;
+  learned: number;
+  notLearned: number;
 }

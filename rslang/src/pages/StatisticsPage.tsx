@@ -8,16 +8,19 @@ import styles from './PagesStyle.module.scss';
 
 // import data from '../components/Statistics/db.json';
 import { getStatisticsThunk } from '../RTK/slices/statistics/statistics-operations';
+import { StatisticOptional } from '../components/types';
 
 function StatisticsPage(): JSX.Element {
   const data = useSelector((state: RootState) => state.statsSlice);
   const dispatch = useDispatch<AppDispatch>();
 
-  // useEffect(() => {
-  //   dispatch(getStatisticsThunk());
-  // });
+  useEffect(() => {
+    dispatch(getStatisticsThunk());
+  }, [dispatch]);
 
-  console.log(data);
+  const optional = data.optional as StatisticOptional;
+
+  console.log(optional);
 
   // const optionsData = data.statistics;
   const noData = 'No data';
