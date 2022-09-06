@@ -20,6 +20,7 @@ import {
   updateUserWordTrunk,
 } from '../../RTK/slices/userWords/userWordsSlice';
 import { sendStats } from './sendStats';
+import { useUserWords } from './userWordsHook';
 
 interface IGameState {
   answer: IWord | null;
@@ -41,6 +42,12 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
   const [answerGiven, setAnswerGiven] = useState<string | null>(null);
   const [answer, setAnswer] = useState<string | null>(null);
+  const [result, setResult] = useState<IGameResult>({
+    correct: [],
+    wrong: [],
+    combo: 0,
+    comboLongest: 0,
+  });
 
   const [gameState, setGameState] = useState<IGameState>({
     answer: null,
@@ -54,6 +61,8 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
     combo: 0,
     comboLongest: 0,
   });
+
+  useUserWords(result);
 
   const wordsInGame = useRef<IWord[]>([...words]);
 
@@ -99,37 +108,14 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
       // ? ----------------------------------------------------------------------------------
 
       try {
-        stats.current.correct.forEach(word => {
-          if (!userWords.some(userWord => userWord.wordId === word.id)) {
-            dispatch(postUserWordsThunk({ id: word.id, difficulty: 'learned' }));
-          } else if (
-            userWords.find(
-              userWord => userWord.wordId === word.id && userWord.difficulty === 'notLearned',
-            )
-          ) {
-            console.log('notLearned --> learned', word.id, word.word);
-            dispatch(updateUserWordTrunk({ id: word.id, difficulty: 'learned' }));
-          }
-        });
 
-        stats.current.wrong.forEach(word => {
-          if (!userWords.some(userWord => userWord.wordId === word.id)) {
-            dispatch(postUserWordsThunk({ id: word.id, difficulty: 'notLearned' }));
-          } else if (
-            userWords.find(
-              userWord => userWord.wordId === word.id && userWord.difficulty === 'learned',
-            )
-          ) {
-            console.log('learned --> notLearned', word.id, word.word);
-            dispatch(updateUserWordTrunk({ id: word.id, difficulty: 'notLearned' }));
-          }
-        });
+        setResult(stats.current);
       } catch (error) {
         console.error(error);
       } finally {
-        dispatch(getUserWordsThunk()).then(() => {
-          dispatch(putStatisticsThunk({ optional: sendStats('AudioChallenge', stats.current, userWords) }));
-        });
+        dispatch(
+          putStatisticsThunk({ optional: sendStats('AudioChallenge', stats.current, userWords) }),
+        );
       }
 
       // userWords.forEach(w => {
