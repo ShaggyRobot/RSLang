@@ -128,7 +128,7 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
         console.error(error);
       } finally {
         dispatch(getUserWordsThunk()).then(() => {
-          dispatch(putStatisticsThunk({ optional: sendStats(stats.current, userWords) }));
+          dispatch(putStatisticsThunk({ optional: sendStats('AudioChallenge', stats.current, userWords) }));
         });
       }
 

@@ -1,6 +1,7 @@
 import { IGameResult } from './AudioCallGame';
 
 interface IGameStatsDTO {
+  game: string,
   date: number;
   combo: number;
   learned: number;
@@ -8,6 +9,7 @@ interface IGameStatsDTO {
 }
 
 const sendStats = (
+  game: string,
   gameStats: IGameResult,
   userWords: { id: string; difficulty: string; wordId: string }[],
 ): IGameStatsDTO => {
@@ -20,6 +22,7 @@ const sendStats = (
   const wordsNotLearned = gameStats.wrong;
 
   return {
+    game,
     date,
     combo,
     learned: wordsLearnedNew.length,
