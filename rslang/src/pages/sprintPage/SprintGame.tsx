@@ -30,7 +30,7 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
   const [openResult, setOpenResult] = useState(false);
 
   const currentWord = useMemo(() => {
-    return words[index].word.toLocaleUpperCase();
+    return words[index].word.toUpperCase();
   }, [words, index]);
 
   const wordTranslateArr = useMemo(() => {
@@ -38,11 +38,6 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
       return word.wordTranslate;
     });
   }, [words]);
-
-  const restart = (): void => {
-    setStatistic(initialStatistic);
-    setOpenResult(false);
-  };
 
   const checkAnswer = (word: IWord, translate: string, type: boolean): void => {
     const isCorrect = word.wordTranslate === translate;
@@ -53,6 +48,10 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
         return {
           ...prevStatistic,
           combo: (prevStatistic.combo += 1),
+          comboLongest:
+            prevStatistic.comboLongest < prevStatistic.combo
+              ? (prevStatistic.comboLongest = prevStatistic.combo)
+              : prevStatistic.comboLongest,
         };
       });
     } else {
@@ -70,12 +69,22 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
       setOpenResult(true);
     }
   };
-  // setTimeout(() => GameResultsElement({ stats: statistic, handleRestart: restart }), 60000);
+
+  const restart = (): void => {
+    setStatistic({
+      correct: [],
+      wrong: [],
+      combo: 0,
+      comboLongest: 0,
+    });
+    setOpenResult(false);
+    setIndex(0);
+  };
+
   const translateWord = wordTranslateArr[getRandomIndex(index, wordTranslateArr.length)];
   if (openResult) {
     return <GameResultsElement stats={statistic} handleRestart={restart} />;
   }
-
   return (
     <div className='sprint'>
       <Timer showResults={(): void => setOpenResult(true)} />
