@@ -78,7 +78,7 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
 
   return (
     <div className='sprint'>
-      <Timer handleRestart={(): void => setOpenResult(true)} />
+      <Timer showResults={(): void => setOpenResult(true)} />
       <div className='games-field'>
         <CardContent className='card-content'>
           <Typography className='word-text'>{`${currentWord}`.toUpperCase()}</Typography>
