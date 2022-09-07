@@ -1,18 +1,16 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import axios from 'axios';
-import { toast } from 'react-toastify';
 
-import { getWordsWithoutPage } from '../../../API/words';
 import { IError } from '../../../components/types';
 import { RootState } from '../../store';
 
-interface userWord {
+interface IUserWord {
   id: string;
   difficulty: string;
   wordId: string;
 }
 
-const initialState: { words: userWord[] } = {
+const initialState: { words: IUserWord[] } = {
   words: [],
 };
 
@@ -138,4 +136,5 @@ export {
   deleteUserWordThunk,
   updateUserWordTrunk,
   userWordsSlice,
+  type IUserWord,
 };

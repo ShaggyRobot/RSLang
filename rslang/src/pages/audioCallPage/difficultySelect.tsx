@@ -9,7 +9,9 @@ function DifficultySelect(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
 
   const getWords = (group: number): void => {
-    dispatch(getWordsThunk({ group, page: Math.floor(Math.random() * 29) }));
+    const page = Math.floor(Math.random() * 29);
+    console.log('group:', group, 'page', page);
+    dispatch(getWordsThunk({ group, page }));
   };
 
   return (
