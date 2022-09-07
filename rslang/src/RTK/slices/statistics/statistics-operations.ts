@@ -4,9 +4,8 @@ import { toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import { IError } from '../../../components/types';
+import { IError, putOptionsThunk } from '../../../components/types';
 import { RootState } from '../../store';
-import { IGameStatsDTO } from '../../../pages/audioCallPage/sendStats';
 
 const options = {
   autoClose: 3000,
@@ -32,19 +31,22 @@ function getErrorMessage(error: unknown): string {
 
 const getStatisticsThunk = createAsyncThunk(
   'statistics/getStatisticsThunk',
-  async (id: string, thunkApi) => {
+  async (_, thunkApi) => {
     const state = thunkApi.getState() as RootState;
+    const userId = state.auth.userId;
     const jwt = state.auth.token;
     token.set(jwt!);
     try {
-      const { data } = await axios.get(`/users/${id}/statistics`);
-      console.log('GET:', data);
+      const { data } = await axios.get(`/users/${userId}/statistics`);
       return data;
     } catch (error) {
       const result = error as IError;
 
-      if (result.response.status === 417) {
-        toast.error('User already exists', options);
+      if (result.response.status === 401) {
+        toast.error('Access token is missing or invalid', options);
+      }
+      if (result.response.status === 404) {
+        toast.error('Statistics not found', options);
       }
       return { message: getErrorMessage(error) };
     }
@@ -53,7 +55,7 @@ const getStatisticsThunk = createAsyncThunk(
 
 const putStatisticsThunk = createAsyncThunk(
   'statistics/putStatisticsThunk',
-  async (dto: {optional: IGameStatsDTO }, thunkApi) => {
+  async (dto: { optional: putOptionsThunk }, thunkApi) => {
     const { optional } = dto;
 
     const state = thunkApi.getState() as RootState;
@@ -62,13 +64,15 @@ const putStatisticsThunk = createAsyncThunk(
     token.set(jwt!);
     try {
       const { data } = await axios.put(`/users/${userId}/statistics`, { optional });
-      console.log(data);
       return data;
     } catch (error) {
       const result = error as IError;
 
-      if (result.response.status === 417) {
-        toast.error('User already exists', options);
+      if (result.response.status === 400) {
+        toast.error('Bad request', options);
+      }
+      if (result.response.status === 401) {
+        toast.error('Access token is missing or invalid', options);
       }
       return { message: getErrorMessage(error) };
     }

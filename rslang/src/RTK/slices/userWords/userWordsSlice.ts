@@ -55,10 +55,10 @@ const getUserWordsThunk = createAsyncThunk('userWords/getUserWordsThunk', async 
   const userId = state.auth.userId;
   const jwt = state.auth.token;
   token.set(jwt!);
-  console.log('getUserWords');
+  // console.log('getUserWords');
   try {
     const { data } = await axios.get(`/users/${userId}/words`);
-    console.log(data);
+    // console.log(data);
     return data;
   } catch (error) {
     const result = error as IError;

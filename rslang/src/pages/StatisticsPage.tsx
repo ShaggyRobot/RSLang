@@ -1,16 +1,32 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Typography, Container, Box } from '@mui/material';
+import { useDispatch, useSelector } from 'react-redux';
 
+import { AppDispatch, RootState } from '../RTK/store';
 import Statistics from '../components/Statistics';
-import styles from './PagesStyle.module.scss';
-import data from '../components/Statistics/db.json';
+
+import { getStatisticsThunk } from '../RTK/slices/statistics/statistics-operations';
+import { StatisticOptional } from '../components/types';
 
 function StatisticsPage(): JSX.Element {
-  const optionsData = data.statistics;
+  const dataStatsSlice = useSelector((state: RootState) => state.statsSlice);
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(getStatisticsThunk());
+  }, [dispatch]);
+
+  const data = dataStatsSlice.optional
+    ? (Object.values(dataStatsSlice.optional) as StatisticOptional[])
+    : [];
+  const dataAudioChallenge = data.filter(item => item.game === 'AudioChallenge');
+  const dataSprintGame = data.filter(item => item.game === 'SprintGame');
+  const dataLernWords = data.filter(item => item.game === 'LernWords');
+
   const noData = 'No data';
 
   return (
-    <div className={styles.statisticsPage}>
+    <div className='page'>
       <h1>Statistics Page</h1>
       <Container component='main' maxWidth='xs'>
         <Box
@@ -22,21 +38,21 @@ function StatisticsPage(): JSX.Element {
           }}
         >
           <Typography component='h2' variant='h5'>
-            Sprint
+            Audio Call
           </Typography>
           <Box>
-            {data.statistics.sprint.length ? (
-              <Statistics data={optionsData.sprint} option={false} />
+            {dataAudioChallenge.length ? (
+              <Statistics data={dataAudioChallenge} option={false} />
             ) : (
               <div>{noData}</div>
             )}
           </Box>
           <Typography component='h2' variant='h5'>
-            Audio Call
+            Sprint
           </Typography>
           <Box>
-            {data.statistics.sprint.length ? (
-              <Statistics data={optionsData.audio} option={false} />
+            {dataSprintGame.length ? (
+              <Statistics data={dataSprintGame} option={false} />
             ) : (
               <div>{noData}</div>
             )}
@@ -45,8 +61,8 @@ function StatisticsPage(): JSX.Element {
             Words
           </Typography>
           <Box>
-            {data.statistics.sprint.length ? (
-              <Statistics data={optionsData.words} option={true} />
+            {dataLernWords.length ? (
+              <Statistics data={dataLernWords} option={true} />
             ) : (
               <div>{noData}</div>
             )}
