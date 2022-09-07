@@ -9,13 +9,11 @@ import { Button, Stack } from '@mui/material';
 
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 
 import Typography from '@mui/material/Typography';
 
 import { getRandomIndex } from '../../components/utils/getRandomIndex';
 import { IWord } from '../../API/words';
-import OpenModal from '../../components/Modal';
 import { GameResultsElement, IGameStats } from '../audioCallPage/GameResultsElement';
 import { Timer } from './CountDownTimer';
 
@@ -43,6 +41,7 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
 
   const restart = (): void => {
     setStatistic(initialStatistic);
+    setOpenResult(false);
   };
 
   const checkAnswer = (word: IWord, translate: string, type: boolean): void => {
@@ -53,7 +52,7 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
         prevStatistic.correct.push(word);
         return {
           ...prevStatistic,
-          combo: prevStatistic.combo + 1,
+          combo: (prevStatistic.combo += 1),
         };
       });
     } else {
@@ -68,11 +67,10 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
     if (index < words.length - 1) {
       setIndex(prevIndex => prevIndex + 1);
     } else {
-      console.log('end');
       setOpenResult(true);
     }
   };
-
+  // setTimeout(() => GameResultsElement({ stats: statistic, handleRestart: restart }), 60000);
   const translateWord = wordTranslateArr[getRandomIndex(index, wordTranslateArr.length)];
   if (openResult) {
     return <GameResultsElement stats={statistic} handleRestart={restart} />;
@@ -80,7 +78,7 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
 
   return (
     <div className='sprint'>
-      <Timer />
+      <Timer handleRestart={(): void => setOpenResult(true)} />
       <div className='games-field'>
         <CardContent className='card-content'>
           <Typography className='word-text'>{`${currentWord}`.toUpperCase()}</Typography>
