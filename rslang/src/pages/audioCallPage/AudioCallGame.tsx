@@ -129,9 +129,10 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
             }),
           );
         }
-
-        setGameState({ ...gameState, finished: true });
         setCurrentAudio(null);
+      } else {
+        setGameState({ ...gameState, finished: true });
+        setResult(stats.current);
       }
     }
   };
