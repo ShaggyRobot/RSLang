@@ -46,17 +46,15 @@ function Statistics(props: { data: StatisticOptional[]; option: boolean }): JSX.
         </Select>
       </FormControl>
       <ComposedChart width={730} height={250} data={filterData}>
-        <XAxis dataKey='time' />
-        <YAxis />
+        <XAxis dataKey='time' tick={{ stroke: 'black', strokeWidth: 1 }} />
+        <YAxis tick={{ stroke: 'black', strokeWidth: 1 }} />
         <Tooltip />
         <Legend verticalAlign={'top'} />
         <CartesianGrid stroke='#f5f5f5' />
-        {/* <Bar name='new words' dataKey='new' barSize={20} fill='#FFD700' /> */}
         <Bar name='correct words' dataKey='correct' barSize={20} fill='#008000' />
         <Bar name='wrong words' dataKey='wrong' barSize={20} fill='#FF0000' />
         {!props.option && <Bar name='combo' dataKey='combo' barSize={20} fill='#ff7300' />}
         <Bar name='percent' dataKey='percent' barSize={20} fill='#A52A2A' />
-        {/* {props.option && <Bar name='percent' dataKey='percent' barSize={20} fill='#A52A2A' />} */}
       </ComposedChart>
     </Box>
   );

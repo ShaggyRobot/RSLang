@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { AppDispatch, RootState } from '../RTK/store';
 import Statistics from '../components/Statistics';
-import styles from './PagesStyle.module.scss';
 
 import { getStatisticsThunk } from '../RTK/slices/statistics/statistics-operations';
 import { StatisticOptional } from '../components/types';
@@ -17,16 +16,17 @@ function StatisticsPage(): JSX.Element {
     dispatch(getStatisticsThunk());
   }, [dispatch]);
 
-  const data = Object.values(dataStatsSlice.optional) as StatisticOptional[];
+  const data = dataStatsSlice.optional
+    ? (Object.values(dataStatsSlice.optional) as StatisticOptional[])
+    : [];
   const dataAudioChallenge = data.filter(item => item.game === 'AudioChallenge');
   const dataSprintGame = data.filter(item => item.game === 'SprintGame');
   const dataLernWords = data.filter(item => item.game === 'LernWords');
 
-  console.log(data);
   const noData = 'No data';
 
   return (
-    <div className={styles.statisticsPage}>
+    <div className='page'>
       <h1>Statistics Page</h1>
       <Container component='main' maxWidth='xs'>
         <Box
@@ -38,7 +38,7 @@ function StatisticsPage(): JSX.Element {
           }}
         >
           <Typography component='h2' variant='h5'>
-            Sprint
+            Audio Call
           </Typography>
           <Box>
             {dataAudioChallenge.length ? (
@@ -48,7 +48,7 @@ function StatisticsPage(): JSX.Element {
             )}
           </Box>
           <Typography component='h2' variant='h5'>
-            Audio Call
+            Sprint
           </Typography>
           <Box>
             {dataSprintGame.length ? (

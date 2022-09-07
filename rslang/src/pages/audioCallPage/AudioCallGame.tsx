@@ -16,12 +16,6 @@ import {
   getStatisticsThunk,
   putStatisticsThunk,
 } from '../../RTK/slices/statistics/statistics-operations';
-import {
-  deleteUserWordThunk,
-  getUserWordsThunk,
-  postUserWordsThunk,
-  updateUserWordTrunk,
-} from '../../RTK/slices/userWords/userWordsSlice';
 import { sendStats } from './sendStats';
 import { useUserWords } from './userWordsHook';
 
@@ -40,8 +34,8 @@ interface IGameResult {
 
 function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
   const userWords = useSelector((state: RootState) => state.userWordsSlice.words);
-  // const userId = useSelector((state: RootState) => state.auth.userId);
   const getStatistics = useSelector((state: RootState) => state.statsSlice);
+  const isAuthrnticated = useSelector((state: RootState) => state.auth?.token);
   const dispatch = useDispatch<AppDispatch>();
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
   const [answerGiven, setAnswerGiven] = useState<string | null>(null);
@@ -66,7 +60,14 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
     comboLongest: 0,
   });
 
-  useUserWords(result);
+  if (isAuthrnticated) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useUserWords(result);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      dispatch(getStatisticsThunk());
+    }, [dispatch]);
+  }
 
   const wordsInGame = useRef<IWord[]>([...words]);
 
@@ -77,10 +78,6 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
   useEffect(() => {
     currentAudio?.audio.play();
   }, [currentAudio]);
-
-  useEffect(() => {
-    dispatch(getStatisticsThunk());
-  }, [dispatch]);
 
   const handlePlay = (): void => {
     if (currentAudio) {
@@ -113,34 +110,29 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
 
       setGameState({ ...gameState, answer, variants: varsShuffled, finished: false });
     } else {
-      // ? ----------------------------------------------------------------------------------
+      if (isAuthrnticated) {
+        try {
+          setResult(stats.current);
+        } catch (error) {
+          throw error;
+        } finally {
+          const dateNow = Date.now().toString();
 
-      try {
-        setResult(stats.current);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        const dateNow = Date.now().toString();
+          const options = {
+            ...getStatistics.optional,
+            [dateNow]: { ...sendStats('AudioChallenge', stats.current, userWords) },
+          };
 
-        const options = {
-          ...getStatistics.optional,
-          [dateNow]: { ...sendStats('AudioChallenge', stats.current, userWords) },
-        };
+          dispatch(
+            putStatisticsThunk({
+              optional: options,
+            }),
+          );
+        }
 
-        dispatch(
-          putStatisticsThunk({
-            optional: options,
-          }),
-        );
+        setGameState({ ...gameState, finished: true });
+        setCurrentAudio(null);
       }
-
-      // userWords.forEach(w => {
-      //   dispatch(deleteUserWordThunk({id: w.wordId}));
-      // });
-
-      setGameState({ ...gameState, finished: true });
-      setCurrentAudio(null);
-      const optional = JSON.stringify(stats.current);
     }
   };
 
