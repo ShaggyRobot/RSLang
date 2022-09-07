@@ -4,12 +4,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { Container, Grid, Pagination } from '@mui/material';
 
-import { AppDispatch, RootState } from '../RTK/store';
-import { getWordsThunk } from '../RTK/slices/words/wordsSlice';
+import { AppDispatch, RootState } from '../../RTK/store';
+import { getWordsThunk } from '../../RTK/slices/words/wordsSlice';
 
-import Preloader from '../components/preloader/preloader';
-import { WordCard } from '../components/WordCard';
-import { IAudio } from '../components/Interfaces/Iaudio';
+import Preloader from '../../components/preloader/preloader';
+import { WordCard } from './WordCard';
+import { IAudio } from '../../components/Interfaces/Iaudio';
+import { getUserWordsThunk } from '../../RTK/slices/userWords/userWordsSlice';
 
 function WordsPage(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
