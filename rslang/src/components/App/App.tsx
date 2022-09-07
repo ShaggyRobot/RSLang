@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Route, Routes } from 'react-router-dom';
 
 import './App.scss';
@@ -15,9 +15,17 @@ import { StatisticsPage } from '../../pages/StatisticsPage';
 import { SignIn } from '../../pages/SignIn';
 import { SignUp } from '../../pages/SignUp';
 import { Layout } from '../Layout/Layout';
-import { WordsPage } from '../../pages/WordsPage';
+import { WordsPage } from '../../pages/wordsPage/WordsPage';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '../../RTK/store';
+import { getUserWordsThunk } from '../../RTK/slices/userWords/userWordsSlice';
 
 function App(): JSX.Element {
+  const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(getUserWordsThunk());
+  }, [dispatch]);
   return (
     <div className='App'>
       <Routes>

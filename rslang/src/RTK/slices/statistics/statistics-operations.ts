@@ -4,14 +4,9 @@ import { toast } from 'react-toastify';
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import { IError, State } from '../../../components/types';
-import { IGameStats } from '../../../pages/audioCallPage/AudioCallGame';
-import { useSelector } from 'react-redux';
+import { IError } from '../../../components/types';
 import { RootState } from '../../store';
-
-import { authSelectors } from '../auth';
-import { Dot } from 'recharts';
-import { config } from 'process';
+import { IGameStatsDTO } from '../../../pages/audioCallPage/sendStats';
 
 const options = {
   autoClose: 3000,
@@ -58,20 +53,16 @@ const getStatisticsThunk = createAsyncThunk(
 
 const putStatisticsThunk = createAsyncThunk(
   'statistics/putStatisticsThunk',
-  async (dto: { id: string; optional: IGameStats }, thunkApi) => {
+  async (dto: {optional: IGameStatsDTO }, thunkApi) => {
+    const { optional } = dto;
+
     const state = thunkApi.getState() as RootState;
+    const userId = state.auth.userId;
     const jwt = state.auth.token;
     token.set(jwt!);
-    thunkApi.dispatch(getStatisticsThunk(dto.id));
-
-    const a = state.statsSlice;
-    console.log(a);
-
     try {
-      const { data } = await axios.put(`/users/${dto.id}/statistics`, {
-        learnedWords: 0,
-        optional: {statistics: []},
-      });
+      const { data } = await axios.put(`/users/${userId}/statistics`, { optional });
+      console.log(data);
       return data;
     } catch (error) {
       const result = error as IError;
