@@ -60,26 +60,17 @@ export interface ModalChildrenProps {
 export interface returnDataOptions {
   fulldate: string;
   time: string;
-  new: number;
   correct: number;
   wrong: number;
   percent: number;
   total: number;
+  combo: number;
 }
 
 export interface DataOptions {
   learnedWords: number;
   optional: {};
   status: null | string;
-}
-
-export interface dataDate {
-  date: number;
-  new: number;
-  wrong: number;
-  correct: number;
-  quantity?: number;
-  learn?: number;
 }
 
 export interface StatisticOptional {
@@ -92,8 +83,4 @@ export interface StatisticOptional {
 
 export interface putOptionsThunk {
   [key: string]: IGameStatsDTO;
-}
-
-export interface putGameOptions {
-  AudioChallenge: putOptionsThunk;
 }

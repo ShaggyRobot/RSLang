@@ -6,28 +6,23 @@ import { AppDispatch, RootState } from '../RTK/store';
 import Statistics from '../components/Statistics';
 import styles from './PagesStyle.module.scss';
 
-// import data from '../components/Statistics/db.json';
 import { getStatisticsThunk } from '../RTK/slices/statistics/statistics-operations';
 import { StatisticOptional } from '../components/types';
 
 function StatisticsPage(): JSX.Element {
-  const data = useSelector((state: RootState) => state.statsSlice);
+  const dataStatsSlice = useSelector((state: RootState) => state.statsSlice);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(getStatisticsThunk());
   }, [dispatch]);
 
-  const optional = data.optional as StatisticOptional;
+  const data = Object.values(dataStatsSlice.optional) as StatisticOptional[];
+  const dataAudioChallenge = data.filter(item => item.game === 'AudioChallenge');
+  const dataSprintGame = data.filter(item => item.game === 'SprintGame');
+  const dataLernWords = data.filter(item => item.game === 'LernWords');
 
   console.log(data);
-  // console.log(Object.values(data.optional));
-
-  // Object.values(data).map(item => {
-  //   console.log(item);
-  // });
-
-  // const optionsData = data.statistics;
   const noData = 'No data';
 
   return (
@@ -46,31 +41,31 @@ function StatisticsPage(): JSX.Element {
             Sprint
           </Typography>
           <Box>
-            {/* {data.statistics.sprint.length ? (
-              <Statistics data={[]} option={false} />
+            {dataAudioChallenge.length ? (
+              <Statistics data={dataAudioChallenge} option={false} />
             ) : (
               <div>{noData}</div>
-            )} */}
+            )}
           </Box>
           <Typography component='h2' variant='h5'>
             Audio Call
           </Typography>
           <Box>
-            {/* {data.statistics.sprint.length ? (
-              <Statistics data={[]} option={false} />
+            {dataSprintGame.length ? (
+              <Statistics data={dataSprintGame} option={false} />
             ) : (
               <div>{noData}</div>
-            )} */}
+            )}
           </Box>
           <Typography component='h2' variant='h5'>
             Words
           </Typography>
           <Box>
-            {/* {data.statistics.sprint.length ? (
-              <Statistics data={[]} option={true} />
+            {dataLernWords.length ? (
+              <Statistics data={dataLernWords} option={true} />
             ) : (
               <div>{noData}</div>
-            )} */}
+            )}
           </Box>
         </Box>
       </Container>

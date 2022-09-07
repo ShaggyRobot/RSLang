@@ -5,10 +5,10 @@ import { Bar, ComposedChart, XAxis, YAxis, Legend, Tooltip, CartesianGrid } from
 import { Box, InputLabel, MenuItem, FormControl, Select } from '@mui/material';
 import { SelectChangeEvent } from '@mui/material/Select';
 
-import { dataDate } from '../types';
+import { StatisticOptional } from '../types';
 import handlingData from './handlingData';
 
-function Statistics(props: { data: dataDate[]; option: boolean }): JSX.Element {
+function Statistics(props: { data: StatisticOptional[]; option: boolean }): JSX.Element {
   const handleChange = (event: SelectChangeEvent<string>): void => {
     setDate(event.target.value as string);
   };
@@ -51,10 +51,10 @@ function Statistics(props: { data: dataDate[]; option: boolean }): JSX.Element {
         <Tooltip />
         <Legend verticalAlign={'top'} />
         <CartesianGrid stroke='#f5f5f5' />
-        <Bar name='new words' dataKey='new' barSize={20} fill='#FFD700' />
+        {/* <Bar name='new words' dataKey='new' barSize={20} fill='#FFD700' /> */}
         <Bar name='correct words' dataKey='correct' barSize={20} fill='#008000' />
         <Bar name='wrong words' dataKey='wrong' barSize={20} fill='#FF0000' />
-        {!props.option && <Bar name='quantity' dataKey='quantity' barSize={20} fill='#ff7300' />}
+        {!props.option && <Bar name='combo' dataKey='combo' barSize={20} fill='#ff7300' />}
         <Bar name='percent' dataKey='percent' barSize={20} fill='#A52A2A' />
         {/* {props.option && <Bar name='percent' dataKey='percent' barSize={20} fill='#A52A2A' />} */}
       </ComposedChart>
