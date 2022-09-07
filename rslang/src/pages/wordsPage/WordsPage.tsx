@@ -4,12 +4,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import { Container, Grid, Pagination } from '@mui/material';
 
-import { AppDispatch, RootState } from '../RTK/store';
-import { getWordsThunk } from '../RTK/slices/words/wordsSlice';
+import { AppDispatch, RootState } from '../../RTK/store';
+import { getWordsThunk } from '../../RTK/slices/words/wordsSlice';
 
-import Preloader from '../components/preloader/preloader';
-import { WordCard } from '../components/WordCard';
-import { IAudio } from '../components/Interfaces/Iaudio';
+import Preloader from '../../components/preloader/preloader';
+import { WordCard } from './WordCard';
+import { IAudio } from '../../components/Interfaces/Iaudio';
+import { getUserWordsThunk } from '../../RTK/slices/userWords/userWordsSlice';
 
 function WordsPage(): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
@@ -63,7 +64,7 @@ function WordsPage(): JSX.Element {
 
   return (
     <div className='page words-page'>
-      <h1>{`Group ${group} Page ${page}`}</h1>
+      <h1>{`Group ${Number(group) + 1} Page ${Number(page) + 1}`}</h1>
       <Container>
         <Pagination
           count={30}

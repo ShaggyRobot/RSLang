@@ -13,6 +13,8 @@ import storage from 'redux-persist/lib/storage';
 
 import { authReducer } from './slices/auth';
 import { wordsSlice } from '../RTK/slices/words/wordsSlice';
+import statsSlice from '../RTK/slices/statistics/statistics-slice';
+import { userWordsSlice } from './slices/userWords/userWordsSlice';
 
 const middleware = getDefaultMiddleware({
   serializableCheck: {
@@ -30,6 +32,8 @@ const store = configureStore({
   reducer: {
     auth: persistReducer(authPersistConfig, authReducer),
     wordsSlice: wordsSlice.reducer,
+    statsSlice: statsSlice,
+    userWordsSlice: userWordsSlice.reducer,
   },
   middleware,
 });

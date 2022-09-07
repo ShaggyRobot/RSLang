@@ -1,8 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 
-import { IWord } from '../../API/words';
-
 import { RootState } from '../../RTK/store';
 
 import { AudioCallGame } from './AudioCallGame';

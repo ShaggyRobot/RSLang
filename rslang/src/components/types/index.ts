@@ -1,3 +1,5 @@
+import { IGameStatsDTO } from '../../pages/audioCallPage/sendStats';
+
 export interface IError {
   message: string;
   code: string;
@@ -55,27 +57,30 @@ export interface ModalChildrenProps {
   nameOption?: string;
 }
 
-export interface dataDate {
-  date: number;
-  new: number;
-  wrong: number;
-  correct: number;
-  quantity?: number;
-  learn?: number;
-}
-
 export interface returnDataOptions {
   fulldate: string;
   time: string;
-  new: number;
   correct: number;
   wrong: number;
   percent: number;
   total: number;
+  combo: number;
 }
 
 export interface DataOptions {
   learnedWords: number;
   optional: {};
   status: null | string;
+}
+
+export interface StatisticOptional {
+  combo: number;
+  date: number;
+  game: string;
+  learned: number;
+  notLearned: number;
+}
+
+export interface putOptionsThunk {
+  [key: string]: IGameStatsDTO;
 }

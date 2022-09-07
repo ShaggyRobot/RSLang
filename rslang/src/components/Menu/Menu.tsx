@@ -129,12 +129,23 @@ export default function PersistentDrawerRight(): JSX.Element {
         </div>
         <Divider />
         {navMenu.map(({ name, path, icon }, index) => {
-          return (
-            <MenuItem key={name}>
-              {icon}
-              <NavLink to={path}>{name}</NavLink>
-            </MenuItem>
-          );
+          if (!isLoggedIn) {
+            if (name !== 'Statistics') {
+              return (
+                <MenuItem key={name}>
+                  {icon}
+                  <NavLink to={path}>{name}</NavLink>
+                </MenuItem>
+              );
+            }
+          } else {
+            return (
+              <MenuItem key={name}>
+                {icon}
+                <NavLink to={path}>{name}</NavLink>
+              </MenuItem>
+            );
+          }
         })}
         <Divider />
       </Drawer>

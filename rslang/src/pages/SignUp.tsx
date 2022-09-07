@@ -30,14 +30,14 @@ function SignUp(): JSX.Element {
     const target = event.target as HTMLInputElement;
 
     switch (target.name) {
-    case 'name':
-      return setName(target.value);
-    case 'email':
-      return setEmail(target.value);
-    case 'password':
-      return setPassword(target.value);
-    default:
-      return;
+      case 'name':
+        return setName(target.value);
+      case 'email':
+        return setEmail(target.value);
+      case 'password':
+        return setPassword(target.value);
+      default:
+        return;
     }
   };
 
@@ -60,7 +60,6 @@ function SignUp(): JSX.Element {
         <CssBaseline />
         <Box
           sx={{
-            // marginTop: 8,
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

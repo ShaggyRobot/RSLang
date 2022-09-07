@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 import { DataOptions } from '../../../components/types';
 
-import getStatisticsThunk from './statistics-operations';
+import { getStatisticsThunk } from './statistics-operations';
 
 const initialState: DataOptions = {
   learnedWords: 0,
@@ -10,7 +10,7 @@ const initialState: DataOptions = {
   status: null,
 };
 
-const authSlice = createSlice({
+const statsSlice = createSlice({
   name: 'statistics',
   initialState,
   reducers: {},
@@ -27,4 +27,4 @@ const authSlice = createSlice({
   },
 });
 
-export default authSlice.reducer;
+export default statsSlice.reducer;

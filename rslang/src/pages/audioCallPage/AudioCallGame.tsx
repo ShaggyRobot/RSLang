@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import { Button } from '@mui/material';
@@ -10,13 +11,21 @@ import { GameResultsElement } from './GameResultsElement';
 
 import './audio-call.scss';
 
+import { AppDispatch, RootState } from '../../RTK/store';
+import {
+  getStatisticsThunk,
+  putStatisticsThunk,
+} from '../../RTK/slices/statistics/statistics-operations';
+import { sendStats } from './sendStats';
+import { useUserWords } from './userWordsHook';
+
 interface IGameState {
   answer: IWord | null;
   variants: IWord[];
   finished: boolean;
 }
 
-interface IGameStats {
+interface IGameResult {
   correct: IWord[];
   wrong: IWord[];
   combo: number;
@@ -24,9 +33,19 @@ interface IGameStats {
 }
 
 function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
+  const userWords = useSelector((state: RootState) => state.userWordsSlice.words);
+  const getStatistics = useSelector((state: RootState) => state.statsSlice);
+  const isAuthrnticated = useSelector((state: RootState) => state.auth?.token);
+  const dispatch = useDispatch<AppDispatch>();
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
   const [answerGiven, setAnswerGiven] = useState<string | null>(null);
   const [answer, setAnswer] = useState<string | null>(null);
+  const [result, setResult] = useState<IGameResult>({
+    correct: [],
+    wrong: [],
+    combo: 0,
+    comboLongest: 0,
+  });
 
   const [gameState, setGameState] = useState<IGameState>({
     answer: null,
@@ -34,12 +53,21 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
     finished: false,
   });
 
-  const stats = useRef<IGameStats>({
+  const stats = useRef<IGameResult>({
     correct: [],
     wrong: [],
     combo: 0,
     comboLongest: 0,
   });
+
+  if (isAuthrnticated) {
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useUserWords(result);
+    // eslint-disable-next-line react-hooks/rules-of-hooks
+    useEffect(() => {
+      dispatch(getStatisticsThunk());
+    }, [dispatch]);
+  }
 
   const wordsInGame = useRef<IWord[]>([...words]);
 
@@ -68,6 +96,7 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
       setAnswerGiven(null);
       vars.add(answer);
       const audio = new Audio(`${baseUrl}/${answer?.audio}`);
+      audio.volume = 0.1;
       setCurrentAudio({ audio, id: answer.id });
       while (vars.size < 5) {
         vars.add(words[Math.floor(Math.random() * words.length)]);
@@ -81,8 +110,30 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
 
       setGameState({ ...gameState, answer, variants: varsShuffled, finished: false });
     } else {
-      setGameState({ ...gameState, finished: true });
-      setCurrentAudio(null);
+      if (isAuthrnticated) {
+        try {
+          setResult(stats.current);
+        } catch (error) {
+          throw error;
+        } finally {
+          const dateNow = Date.now().toString();
+
+          const options = {
+            ...getStatistics.optional,
+            [dateNow]: { ...sendStats('AudioChallenge', stats.current, userWords) },
+          };
+
+          dispatch(
+            putStatisticsThunk({
+              optional: options,
+            }),
+          );
+        }
+        setCurrentAudio(null);
+      } else {
+        setGameState({ ...gameState, finished: true });
+        setResult(stats.current);
+      }
     }
   };
 
@@ -171,4 +222,4 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
   );
 }
 
-export { AudioCallGame };
+export { AudioCallGame, type IGameResult };
