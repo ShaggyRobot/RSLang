@@ -1,33 +1,48 @@
-import React, { useMemo } from 'react';
-import { useEffect, useRef, useState } from 'react';
-
-import ArrowCircleLeftSharpIcon from '@mui/icons-material/ArrowCircleLeftSharp';
-
-import ArrowCircleRightSharpIcon from '@mui/icons-material/ArrowCircleRightSharp';
+import React, { useMemo, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import { Button, Stack } from '@mui/material';
-
+import Typography from '@mui/material/Typography';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 
-import Typography from '@mui/material/Typography';
+import ArrowCircleLeftSharpIcon from '@mui/icons-material/ArrowCircleLeftSharp';
+import ArrowCircleRightSharpIcon from '@mui/icons-material/ArrowCircleRightSharp';
 
-import { getRandomIndex } from '../../components/utils/getRandomIndex';
+import { AppDispatch, RootState } from '../../RTK/store';
+
 import { IWord } from '../../API/words';
-import { GameResultsElement, IGameStats } from '../audioCallPage/GameResultsElement';
 import { Timer } from './CountDownTimer';
-
-const initialStatistic = {
-  correct: [],
-  wrong: [],
-  combo: 0,
-  comboLongest: 0,
-};
+import { getRandomIndex } from '../../components/utils/getRandomIndex';
+import { GameResultsElement, IGameStats } from '../audioCallPage/GameResultsElement';
+import { useUserWords } from '../audioCallPage/userWordsHook';
+import { sendStats } from '../audioCallPage/sendStats';
+import { putStatisticsThunk } from '../../RTK/slices/statistics/statistics-operations';
 
 function SprintGame({ words }: { words: IWord[] }): JSX.Element {
+  const dispatch = useDispatch<AppDispatch>();
+  const isAuthrnticated = useSelector((state: RootState) => state.auth?.token);
+  const getStatistics = useSelector((state: RootState) => state.statsSlice);
+  const userWords = useSelector((state: RootState) => state.userWordsSlice.words);
+
   const [index, setIndex] = useState(0);
-  const [statistic, setStatistic] = useState<IGameStats>(initialStatistic);
+  const [result, setResult] = useState<IGameStats>({
+    correct: [],
+    wrong: [],
+    combo: 0,
+    comboLongest: 0,
+  });
+
+  const [statistic, setStatistic] = useState<IGameStats>({
+    correct: [],
+    wrong: [],
+    combo: 0,
+    comboLongest: 0,
+  });
+
   const [openResult, setOpenResult] = useState(false);
+
+  useUserWords(result);
 
   const currentWord = useMemo(() => {
     return words[index].word.toUpperCase();
@@ -67,6 +82,26 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
       setIndex(prevIndex => prevIndex + 1);
     } else {
       setOpenResult(true);
+      if (isAuthrnticated) {
+        try {
+          setResult(statistic);
+        } catch (error) {
+          throw error;
+        } finally {
+          const dateNow = Date.now().toString();
+
+          const options = {
+            ...getStatistics.optional,
+            [dateNow]: { ...sendStats('SprintGame', statistic, userWords) },
+          };
+
+          dispatch(
+            putStatisticsThunk({
+              optional: options,
+            }),
+          );
+        }
+      }
     }
   };
 
@@ -117,11 +152,3 @@ function SprintGame({ words }: { words: IWord[] }): JSX.Element {
 }
 
 export { SprintGame };
-
-//1. ф-я, когда игра закончилась
-//2. ф-я, кот будет чистить statistic, при запуске игры заново
-//3. ф-я, кот запускать игру заново при нажатии на кнопку играть еще
-//4. разделить на компоненты
-//5. изменить checkanswer
-// 6/ useEffect - как только комбо = 3, сделать анимацию + прибавление очков
-//7. таймер через сетинтервал - переменную , кот будет уменьшаться каждую секунду + ее обнуление

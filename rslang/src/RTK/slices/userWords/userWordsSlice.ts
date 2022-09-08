@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import axios from 'axios';
 
 import { IError } from '../../../components/types';
@@ -55,17 +55,19 @@ const getUserWordsThunk = createAsyncThunk('userWords/getUserWordsThunk', async 
   const userId = state.auth.userId;
   const jwt = state.auth.token;
   token.set(jwt!);
-  // console.log('getUserWords');
-  try {
-    const { data } = await axios.get(`/users/${userId}/words`);
-    // console.log(data);
-    return data;
-  } catch (error) {
-    const result = error as IError;
-    if (result.response.status === 417) {
-      console.error('Word already exists');
+  if (userId) {
+    try {
+      const { data } = await axios.get(`/users/${userId}/words`);
+      return data;
+    } catch (error) {
+      const result = error as IError;
+      if (result.response.status === 417) {
+        console.error('Word already exists');
+      }
+      return { message: getErrorMessage(error) };
     }
-    return { message: getErrorMessage(error) };
+  } else {
+    return initialState;
   }
 });
 
@@ -76,7 +78,6 @@ const updateUserWordTrunk = createAsyncThunk(
     const userId = state.auth.userId;
     const jwt = state.auth.token;
     token.set(jwt!);
-    console.log('updateUserWords');
     try {
       const { data } = await axios.put(`/users/${userId}/words/${dto.id}`, {
         difficulty: dto.difficulty,
@@ -126,7 +127,18 @@ const userWordsSlice = createSlice({
       .addCase(deleteUserWordThunk.fulfilled, (state, action) => {
         state.words = state.words.filter(word => word.wordId !== action.payload);
       })
-      .addCase(postUserWordsThunk.fulfilled, (state, action) => {});
+      .addCase(postUserWordsThunk.fulfilled, (state, action) => {
+        state.words.push(action.payload);
+      })
+      .addCase(updateUserWordTrunk.fulfilled, (state, action) => {
+        state.words = state.words.map(word => {
+          if (word.wordId === action.payload.wordId) {
+            return action.payload;
+          } else {
+            return word;
+          }
+        });
+      });
   },
 });
 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 import { Button } from '@mui/material';
@@ -10,10 +11,13 @@ import styles from './UserMenu.module.scss';
 
 function UserMenu(): JSX.Element {
   const dispatch = useAppDispatch();
-
-  // eslint-disable-next-line @typescript-eslint/explicit-function-return-type
-  const logOutHandler = () => dispatch(authOperations.logOut());
+  const navigate = useNavigate();
   const name = useSelector(authSelectors.getUsername);
+
+  const logOutHandler = (): void => {
+    dispatch(authOperations.logOut());
+    navigate('/');
+  };
 
   return (
     <div className={styles.logoutContainer}>

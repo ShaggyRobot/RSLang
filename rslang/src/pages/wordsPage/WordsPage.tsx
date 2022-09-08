@@ -21,6 +21,10 @@ function WordsPage(): JSX.Element {
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
 
   useEffect(() => {
+    dispatch(getUserWordsThunk());
+  }, []);
+
+  useEffect(() => {
     const groupNum = parseInt(group || '0');
     const pageNum = parseInt(page || '0');
     dispatch(getWordsThunk({ group: groupNum, page: pageNum }));

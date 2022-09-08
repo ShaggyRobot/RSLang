@@ -15,37 +15,29 @@ const useUserWords = (results: IGameResult): void => {
 
   useEffect(() => {
     dispatch(getUserWordsThunk());
-    return () => {
-      console.log('unmount');
-      dispatch(getUserWordsThunk());
-    };
-  }, []);
 
-  results.correct.forEach(word => {
-    if (!userWords.some(userWord => userWord.wordId === word.id)) {
-      console.log('posting correct', word.id);
-      dispatch(postUserWordsThunk({ id: word.id, difficulty: 'learned' }));
-    } else if (
-      userWords.find(
-        userWord => userWord.wordId === word.id && userWord.difficulty === 'notLearned',
-      )
-    ) {
-      console.log('notLearned --> learned', word.id, word.word);
-      dispatch(updateUserWordTrunk({ id: word.id, difficulty: 'learned' }));
-    }
-  });
+    results.correct.forEach(word => {
+      if (!userWords.some(userWord => userWord.wordId === word.id)) {
+        dispatch(postUserWordsThunk({ id: word.id, difficulty: 'learned' }));
+      } else if (
+        userWords.find(
+          userWord => userWord.wordId === word.id && userWord.difficulty === 'notLearned',
+        )
+      ) {
+        dispatch(updateUserWordTrunk({ id: word.id, difficulty: 'learned' }));
+      }
+    });
 
-  results.wrong.forEach(word => {
-    if (!userWords.some(userWord => userWord.wordId === word.id)) {
-      console.log('posting incorrect', word.id);
-      dispatch(postUserWordsThunk({ id: word.id, difficulty: 'notLearned' }));
-    } else if (
-      userWords.find(userWord => userWord.wordId === word.id && userWord.difficulty === 'learned')
-    ) {
-      console.log('learned --> notLearned', word.id, word.word);
-      dispatch(updateUserWordTrunk({ id: word.id, difficulty: 'notLearned' }));
-    }
-  });
+    results.wrong.forEach(word => {
+      if (!userWords.some(userWord => userWord.wordId === word.id)) {
+        dispatch(postUserWordsThunk({ id: word.id, difficulty: 'notLearned' }));
+      } else if (
+        userWords.find(userWord => userWord.wordId === word.id && userWord.difficulty === 'learned')
+      ) {
+        dispatch(updateUserWordTrunk({ id: word.id, difficulty: 'notLearned' }));
+      }
+    });
+  }, [results]);
 };
 
 export { useUserWords };

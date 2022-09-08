@@ -6,15 +6,23 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { IWord } from '../../API/words';
 import { AppDispatch, RootState } from '../../RTK/store';
-import { IUserWord, updateUserWordTrunk } from '../../RTK/slices/userWords/userWordsSlice';
+import {
+  IUserWord,
+  postUserWordsThunk,
+  updateUserWordTrunk,
+} from '../../RTK/slices/userWords/userWordsSlice';
 
 function WordCard({ word, play }: { word: IWord; play: Function }): JSX.Element {
   const dispatch = useDispatch<AppDispatch>();
-  const baseUrl = process.env.REACT_APP_BASE_URL;
   const userWords = useSelector((state: RootState) => state.userWordsSlice.words);
+  const isAuthrnticated = useSelector((state: RootState) => state.auth?.token);
+  const baseUrl = process.env.REACT_APP_BASE_URL;
 
   const isUserWord = (): IUserWord | undefined => {
-    return userWords.find(userWord => userWord.wordId === word.id);
+    if (userWords.length) {
+      return userWords.find(userWord => userWord.wordId === word.id);
+    }
+    return;
   };
 
   const setStyle = (): React.CSSProperties => {
@@ -32,8 +40,17 @@ function WordCard({ word, play }: { word: IWord; play: Function }): JSX.Element 
   const moveToDifficult = (): void => {
     dispatch(updateUserWordTrunk({ id: word.id, difficulty: 'notLearned' }));
   };
+
   const moveToLearned = (): void => {
     dispatch(updateUserWordTrunk({ id: word.id, difficulty: 'learned' }));
+  };
+
+  const postToDifficult = (): void => {
+    dispatch(postUserWordsThunk({ id: word.id, difficulty: 'notLearned' }));
+  };
+
+  const postToLearned = (): void => {
+    dispatch(postUserWordsThunk({ id: word.id, difficulty: 'learned' }));
   };
 
   const cardControls = (): JSX.Element => {
@@ -55,8 +72,8 @@ function WordCard({ word, play }: { word: IWord; play: Function }): JSX.Element 
     }
     return (
       <div style={{ display: 'flex', paddingTop: '1rem', gap: '1rem' }}>
-        <Chip label='в сложные' color='error' clickable />
-        <Chip label='в изученные' color='success' clickable />
+        <Chip label='в сложные' color='error' clickable onClick={postToDifficult} />
+        <Chip label='в изученные' color='success' clickable onClick={postToLearned} />
       </div>
     );
   };
@@ -102,7 +119,7 @@ function WordCard({ word, play }: { word: IWord; play: Function }): JSX.Element 
             <Typography variant='body2' color='GrayText' component='div' align='left'>
               {word.textExampleTranslate}
             </Typography>
-            {cardControls()}
+            {isAuthrnticated && cardControls()}
           </CardContent>
         </Card>
       </Paper>

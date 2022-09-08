@@ -12,10 +12,7 @@ import { GameResultsElement } from './GameResultsElement';
 import './audio-call.scss';
 
 import { AppDispatch, RootState } from '../../RTK/store';
-import {
-  getStatisticsThunk,
-  putStatisticsThunk,
-} from '../../RTK/slices/statistics/statistics-operations';
+import { putStatisticsThunk } from '../../RTK/slices/statistics/statistics-operations';
 import { sendStats } from './sendStats';
 import { useUserWords } from './userWordsHook';
 
@@ -33,10 +30,12 @@ interface IGameResult {
 }
 
 function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
+  const dispatch = useDispatch<AppDispatch>();
+
   const userWords = useSelector((state: RootState) => state.userWordsSlice.words);
   const getStatistics = useSelector((state: RootState) => state.statsSlice);
-  const isAuthrnticated = useSelector((state: RootState) => state.auth?.token);
-  const dispatch = useDispatch<AppDispatch>();
+  const isAuthrnticated = useSelector((state: RootState) => state.auth.token);
+
   const [currentAudio, setCurrentAudio] = useState<IAudio | null>(null);
   const [answerGiven, setAnswerGiven] = useState<string | null>(null);
   const [answer, setAnswer] = useState<string | null>(null);
@@ -60,14 +59,7 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
     comboLongest: 0,
   });
 
-  if (isAuthrnticated) {
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useUserWords(result);
-    // eslint-disable-next-line react-hooks/rules-of-hooks
-    useEffect(() => {
-      dispatch(getStatisticsThunk());
-    }, [dispatch]);
-  }
+  useUserWords(result);
 
   const wordsInGame = useRef<IWord[]>([...words]);
 
@@ -113,6 +105,7 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
       if (isAuthrnticated) {
         try {
           setResult(stats.current);
+          setGameState({ ...gameState, finished: true });
         } catch (error) {
           throw error;
         } finally {
@@ -132,7 +125,6 @@ function AudioCallGame({ words }: { words: IWord[] }): JSX.Element {
         setCurrentAudio(null);
       } else {
         setGameState({ ...gameState, finished: true });
-        setResult(stats.current);
       }
     }
   };

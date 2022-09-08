@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { getUserWordsThunk } from '../../RTK/slices/userWords/userWordsSlice';
 
 import { clearStateAction, getWordsThunk } from '../../RTK/slices/words/wordsSlice';
 
@@ -7,9 +8,10 @@ import { AppDispatch } from '../../RTK/store';
 import './style.scss';
 
 function HomePage(): JSX.Element {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch<AppDispatch>();
   useEffect(() => {
     dispatch(clearStateAction());
+    dispatch(getUserWordsThunk());
   }, []);
 
   return (

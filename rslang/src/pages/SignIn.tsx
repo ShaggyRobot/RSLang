@@ -17,10 +17,13 @@ import { useAppDispatch } from '../components/Hooks/hook';
 import { authOperations } from '../RTK/slices/auth';
 
 import { SignInCredentials } from '../components/types';
+import { getUserWordsThunk } from '../RTK/slices/userWords/userWordsSlice';
+import { useNavigate } from 'react-router-dom';
 
 const theme = createTheme();
 
 function SignIn(): JSX.Element {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -42,6 +45,7 @@ function SignIn(): JSX.Element {
     dispatch(authOperations.logIn({ email, password }));
     setEmail('');
     setPassword('');
+    navigate('/');
   };
 
   const {
